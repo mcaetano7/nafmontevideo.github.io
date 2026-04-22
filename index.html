@@ -114,7 +114,7 @@
     .inscripcion-card { background: linear-gradient(135deg, rgba(0,61,107,0.5), rgba(0,119,182,0.3)); border: 1px solid rgba(0,212,255,0.25); border-radius: 16px; padding: 50px 40px; margin-top: 3rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
     .inscripcion-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
     .inscripcion-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; margin-bottom: .8rem; }
-    .inscripcion-desc { color: var(--grey); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .inscripcion-desc { color: var(--grey); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; margin: 0 auto; }
     .btn-inscripcion { display: inline-block; background: var(--accent); color: var(--dark); padding: 16px 40px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 0 28px rgba(240,165,0,0.35); }
     .btn-inscripcion:hover { background: #ffb800; transform: translateY(-2px); box-shadow: 0 0 40px rgba(240,165,0,0.5); }
     .inscripcion-info { display: flex; justify-content: center; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
@@ -135,7 +135,7 @@
     .btn-submit:hover { background: var(--accent); transform: translateY(-1px); }
     .form-success { display: none; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; padding: 20px; text-align: center; color: var(--ice); font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 1px; }
     .contact-info { padding-top: 2rem; }
-    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.8rem; }
+    .contact-item { display: block; align-items: flex-start; gap: 1rem; margin-bottom: 1.8rem; }
     .contact-icon { font-size: 1.5rem; width: 44px; height: 44px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .contact-text h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--white); margin-bottom: .2rem; }
     .contact-text p { color: var(--grey); font-size: .95rem; line-height: 1.5; }
@@ -175,7 +175,7 @@
 <body>
 
   <nav>
-    <a href="#inicio" class="nav-logo">NAF<span>.</span>MVD</a>
+    <a href="#inicio" class="nav-logo">NAF<span> </span>MVD</a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#fotos">Fotos</a></li>
@@ -190,31 +190,18 @@
 
   <section id="inicio">
     <div class="hero-bg"></div>
-    <div class="hero-badge">Montevideo · Uruguay</div>
+    <div class="hero-badge">Montevideo, Uruguay</div>
     <h1 class="hero-title">
       <span class="line-white">NADADORES</span>
       <span class="line-ice">AGUAS</span>
       <span class="line-accent">FRÍAS</span>
     </h1>
-    <p class="hero-sub">Comunidad de nado en aguas abiertas y frías en Montevideo. <strong>¡Acá nadie nada solo!</strong></p>
+    <p class="hero-sub">¡Acá nadie nada solo!</p>
     <div class="hero-btns">
       <a href="#inscripcion" class="btn-primary">Quiero unirme</a>
-      <a href="#nosotros" class="btn-secondary">Conocer más</a>
+      <a href="#nosotros" class="btn-secondary">Ver más</a>
     </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-num"></div>
-        <div class="stat-label">Agua fría</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"></div>
-        <div class="stat-label">Aguas abiertas</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num"></div>
-        <div class="stat-label">Comunidad activa</div>
-      </div>
-    </div>
+    
     <div class="waves">
       <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
         <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#070f1c"/>
@@ -228,7 +215,7 @@
         <div class="nosotros-card">
           <span class="nosotros-icon"></span>
           <div class="nosotros-card-title">NAF MVD</div>
-          <div class="nosotros-card-sub">Nadadores de Aguas Frías · Montevideo</div>
+          <div class="nosotros-card-sub">Nadadores de aguas frías · Montevideo</div>
         </div>
         <div class="nosotros-badge"></div>
       </div>
@@ -253,42 +240,36 @@
       <div class="gallery-item">
         <div class="gallery-placeholder">
           <span class="gp-icon"></span>
-          <p>Agregá tu foto acá</p>
         </div>
         <div class="gallery-overlay"><span>Salida grupal</span></div>
       </div>
       <div class="gallery-item">
         <div class="gallery-placeholder">
-          <span class="gp-icon">🌅</span>
-          <p>Agregá tu foto acá</p>
+          <span class="gp-icon"></span>
         </div>
         <div class="gallery-overlay"><span>Amanecer</span></div>
       </div>
       <div class="gallery-item">
         <div class="gallery-placeholder">
-          <span class="gp-icon">🏊</span>
-          <p>Agregá tu foto acá</p>
+          <span class="gp-icon"></span>
         </div>
         <div class="gallery-overlay"><span>Aguas abiertas</span></div>
       </div>
       <div class="gallery-item">
         <div class="gallery-placeholder">
           <span class="gp-icon"></span>
-          <p>Agregá tu foto acá</p>
         </div>
         <div class="gallery-overlay"><span>Invierno</span></div>
       </div>
       <div class="gallery-item">
         <div class="gallery-placeholder">
           <span class="gp-icon"></span>
-          <p>Agregá tu foto acá</p>
         </div>
         <div class="gallery-overlay"><span>Comunidad</span></div>
       </div>
       <div class="gallery-item">
         <div class="gallery-placeholder">
           <span class="gp-icon"></span>
-          <p>Agregá tu foto acá</p>
         </div>
         <div class="gallery-overlay"><span>Montevideo</span></div>
       </div>
@@ -303,28 +284,28 @@
       <div class="reveal">
         <div class="section-tag">Unite al grupo</div>
         <h2 class="section-title">Formulario de <span>inscripción</span></h2>
-        <p class="section-desc">Completá el formulario para sumarte a NAF Montevideo. Te contactamos para coordinar tu primera salida.</p>
+        <p class="section-desc">Completá el formulario para sumarte a la próxima actividad de NAF Montevideo</p>
       </div>
       <div class="inscripcion-card reveal">
         <span class="inscripcion-icon"></span>
-        <div class="inscripcion-title">¿Listo para el frío?</div>
-        <p class="inscripcion-desc">Hacé clic en el botón para completar el formulario de inscripción. Te pedimos algunos datos básicos para coordinar tu incorporación al grupo.</p>
+        <div class="inscripcion-title"></div>
+        <p class="inscripcion-desc">Hacé clic en el botón para completar el formulario de inscripción.</p>
         <!-- link a formulario de inscripcion a actividades-->
-        <a href="https://forms.gle/REEMPLAZAR_CON_TU_LINK" target="_blank" class="btn-inscripcion">
+        <a href="https://forms.gle/REEMPLAZAR" target="_blank" class="btn-inscripcion">
           Completar formulario →
         </a>
         <div class="inscripcion-info">
           <div class="info-item">
-            <span class="info-icon">🆓</span>
-            <span>Gratis unirse</span>
+            <span class="info-icon"></span>
+            <span></span>
           </div>
           <div class="info-item">
             <span class="info-icon"></span>
-            <span>Montevideo</span>
+            <span></span>
           </div>
           <div class="info-item">
             <span class="info-icon"></span>
-            <span>Todo el año</span>
+            <span></span>
           </div>
         </div>
       </div>
@@ -339,21 +320,12 @@
         <p class="section-desc">¿Tenés dudas, querés sumarte o simplemente charlar sobre nado en frío? Escribinos.</p>
         <div class="contact-info">
           <div class="contact-item">
-            <div class="contact-icon"></div>
-            <div class="contact-text">
-              <h4>Ubicación</h4>
-              <p>Montevideo, Uruguay<br>Costas del Río de la Plata</p>
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-icon">📧</div>
             <div class="contact-text">
               <h4>Email</h4>
               <p><a href="mailto:nafmontevideo@gmail.com">nafmontevideo@gmail.com</a></p>
             </div>
           </div>
           <div class="contact-item">
-            <div class="contact-icon"></div>
             <div class="contact-text">
               <h4>Instagram </h4>
               <p>@naf_montevideo</p>
@@ -361,7 +333,7 @@
           </div>
         </div>
         <div class="social-links">
-          <a href="#" class="social-btn">Instagram</a>
+          <a href="https://www.instagram.com/naf_montevideo/" class="social-btn">Instagram</a>
         </div>
       </div>
       <div class="reveal">
@@ -398,8 +370,8 @@
   </section>
 
   <footer>
-    <div class="footer-logo">NAF<span>.</span>MVD</div>
-    <div class="footer-copy">© 2025 NAF Montevideo · Nadadores de Aguas Frías</div>
+    <div class="footer-logo">NAF<span> </span>MVD</div>
+    <div class="footer-copy">© 2026 NAF Montevideo</div>
     <div class="footer-links">
       <a href="#inicio">Inicio</a>
       <a href="#nosotros">Nosotros</a>
