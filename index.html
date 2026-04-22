@@ -1,4 +1,432 @@
-<html>
-<body>NAF Montevideo</body>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAF Montevideo – Nadadores de Aguas Frías</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ice: #00d4ff;
+      --deep: #003d6b;
+      --dark: #050f1a;
+      --wave: #0077b6;
+      --accent: #f0a500;
+      --white: #f0f8ff;
+      --grey: #7a9bb5;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--dark); color: var(--white); overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 6vw;
+      background: rgba(5,15,26,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,212,255,0.12);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 3px; color: var(--ice); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ice); }
+    .nav-cta { background: var(--ice); color: var(--dark); padding: 8px 20px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: .95rem; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; transition: background .2s, transform .15s; }
+    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    #inicio {
+      min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center; padding: 120px 6vw 80px; position: relative; overflow: hidden;
+      background: linear-gradient(160deg, #050f1a 0%, #003d6b 60%, #0077b6 100%);
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 110%, rgba(0,212,255,0.18) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 40% at 80% 20%, rgba(0,119,182,0.25) 0%, transparent 60%);
+    }
+    .waves { position: absolute; bottom: 0; left: 0; width: 100%; overflow: hidden; z-index: 1; }
+    .waves svg { display: block; width: 100%; }
+    .hero-badge {
+      display: inline-block; background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.4);
+      color: var(--ice); font-family: 'Barlow Condensed', sans-serif; font-size: .85rem; font-weight: 700;
+      letter-spacing: 3px; text-transform: uppercase; padding: 6px 18px; border-radius: 2px;
+      margin-bottom: 1.5rem; position: relative; z-index: 2; animation: fadeDown .7s ease both;
+    }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 9rem); line-height: .95; letter-spacing: 4px; position: relative; z-index: 2; animation: fadeDown .7s .15s ease both; }
+    .hero-title .line-ice { color: var(--ice); display: block; }
+    .hero-title .line-white { color: var(--white); display: block; }
+    .hero-title .line-accent { color: var(--accent); display: block; }
+    .hero-sub { margin-top: 1.5rem; font-size: clamp(1rem, 2.5vw, 1.3rem); color: var(--grey); max-width: 520px; line-height: 1.6; position: relative; z-index: 2; animation: fadeDown .7s .3s ease both; }
+    .hero-sub strong { color: var(--white); }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem; position: relative; z-index: 2; animation: fadeDown .7s .45s ease both; }
+    .btn-primary { background: var(--ice); color: var(--dark); padding: 14px 32px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 0 24px rgba(0,212,255,0.35); }
+    .btn-primary:hover { background: var(--accent); box-shadow: 0 0 30px rgba(240,165,0,0.4); transform: translateY(-2px); }
+    .btn-secondary { background: transparent; color: var(--white); padding: 14px 32px; border-radius: 4px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.3); transition: border-color .2s, color .2s, transform .15s; }
+    .btn-secondary:hover { border-color: var(--ice); color: var(--ice); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 3rem; flex-wrap: wrap; justify-content: center; margin-top: 4rem; position: relative; z-index: 2; animation: fadeDown .7s .6s ease both; }
+    .stat { text-align: center; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--ice); line-height: 1; }
+    .stat-label { font-size: .8rem; color: var(--grey); text-transform: uppercase; letter-spacing: 2px; margin-top: 4px; }
+
+    section { padding: 90px 6vw; }
+    .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--ice); margin-bottom: .6rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing: 2px; line-height: 1; margin-bottom: 1rem; }
+    .section-title span { color: var(--ice); }
+    .section-desc { color: var(--grey); font-size: 1.05rem; line-height: 1.7; max-width: 560px; }
+
+    #nosotros { background: #070f1c; }
+    .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .nosotros-visual { position: relative; }
+    .nosotros-card { background: linear-gradient(135deg, #003d6b 0%, #0077b6 100%); border-radius: 12px; padding: 50px 40px; text-align: center; border: 1px solid rgba(0,212,255,0.2); box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .nosotros-icon { font-size: 5rem; margin-bottom: 1rem; display: block; }
+    .nosotros-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 3px; color: var(--ice); margin-bottom: .5rem; }
+    .nosotros-card-sub { color: rgba(255,255,255,0.7); font-size: .95rem; }
+    .nosotros-badge { position: absolute; bottom: -20px; right: -20px; background: var(--accent); color: var(--dark); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; padding: 12px 20px; border-radius: 8px; box-shadow: 0 8px 24px rgba(240,165,0,0.4); }
+    .valores-list { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: .9rem; }
+    .valores-list li { display: flex; align-items: flex-start; gap: .8rem; font-size: 1rem; color: rgba(240,248,255,0.85); line-height: 1.5; }
+    .valores-list li::before { content: '▸'; color: var(--ice); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+    #fotos { background: var(--dark); }
+    .fotos-header { text-align: center; margin-bottom: 3rem; }
+    .fotos-header .section-desc { margin: 0 auto; }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; max-width: 1100px; margin: 0 auto; }
+    .gallery-item { border-radius: 8px; overflow: hidden; background: linear-gradient(135deg, #0a1f35, #003d6b); aspect-ratio: 4/3; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; border: 1px solid rgba(0,212,255,0.1); transition: transform .3s, box-shadow .3s; }
+    .gallery-item:hover { transform: scale(1.02); box-shadow: 0 12px 40px rgba(0,212,255,0.2); }
+    .gallery-item:first-child { grid-column: span 2; aspect-ratio: 16/9; }
+    .gallery-placeholder { text-align: center; color: rgba(255,255,255,0.25); padding: 20px; }
+    .gallery-placeholder .gp-icon { font-size: 2.5rem; display: block; margin-bottom: .5rem; }
+    .gallery-placeholder p { font-size: .8rem; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+    .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%); opacity: 0; transition: opacity .3s; display: flex; align-items: flex-end; padding: 16px; }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-overlay span { font-family: 'Barlow Condensed', sans-serif; font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--ice); }
+    .fotos-note { text-align: center; margin-top: 2rem; font-size: .9rem; color: var(--grey); }
+    .fotos-note a { color: var(--ice); text-decoration: none; }
+    .fotos-note a:hover { text-decoration: underline; }
+
+    /* Imagen real en la galería */
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+
+    #inscripcion { background: #070f1c; }
+    .inscripcion-inner { max-width: 700px; margin: 0 auto; text-align: center; }
+    .inscripcion-card { background: linear-gradient(135deg, rgba(0,61,107,0.5), rgba(0,119,182,0.3)); border: 1px solid rgba(0,212,255,0.25); border-radius: 16px; padding: 50px 40px; margin-top: 3rem; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+    .inscripcion-icon { font-size: 3.5rem; margin-bottom: 1rem; display: block; }
+    .inscripcion-title { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 2px; margin-bottom: .8rem; }
+    .inscripcion-desc { color: var(--grey); font-size: 1rem; line-height: 1.7; margin-bottom: 2rem; }
+    .btn-inscripcion { display: inline-block; background: var(--accent); color: var(--dark); padding: 16px 40px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.15rem; text-transform: uppercase; letter-spacing: 2px; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 0 28px rgba(240,165,0,0.35); }
+    .btn-inscripcion:hover { background: #ffb800; transform: translateY(-2px); box-shadow: 0 0 40px rgba(240,165,0,0.5); }
+    .inscripcion-info { display: flex; justify-content: center; gap: 2.5rem; margin-top: 2.5rem; flex-wrap: wrap; }
+    .info-item { text-align: center; }
+    .info-item .info-icon { font-size: 1.5rem; display: block; margin-bottom: .3rem; }
+    .info-item span { font-size: .8rem; color: var(--grey); text-transform: uppercase; letter-spacing: 1px; }
+
+    #contacto { background: var(--dark); }
+    .contacto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1000px; margin: 0 auto; align-items: start; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label { font-family: 'Barlow Condensed', sans-serif; font-size: .85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); }
+    .form-group input, .form-group textarea, .form-group select { background: rgba(0,61,107,0.3); border: 1px solid rgba(0,212,255,0.2); border-radius: 6px; padding: 12px 16px; color: var(--white); font-family: 'Barlow', sans-serif; font-size: 1rem; outline: none; transition: border-color .2s, box-shadow .2s; }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--ice); box-shadow: 0 0 0 3px rgba(0,212,255,0.1); }
+    .form-group select option { background: #0a1f35; }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .btn-submit { background: var(--ice); color: var(--dark); padding: 14px; border-radius: 6px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 1.5px; border: none; cursor: pointer; transition: background .2s, transform .15s; margin-top: .5rem; }
+    .btn-submit:hover { background: var(--accent); transform: translateY(-1px); }
+    .form-success { display: none; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; padding: 20px; text-align: center; color: var(--ice); font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; letter-spacing: 1px; }
+    .contact-info { padding-top: 2rem; }
+    .contact-item { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.8rem; }
+    .contact-icon { font-size: 1.5rem; width: 44px; height: 44px; background: rgba(0,212,255,0.1); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .contact-text h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; color: var(--white); margin-bottom: .2rem; }
+    .contact-text p { color: var(--grey); font-size: .95rem; line-height: 1.5; }
+    .contact-text a { color: var(--ice); text-decoration: none; }
+    .contact-text a:hover { text-decoration: underline; }
+    .social-links { display: flex; gap: .8rem; margin-top: 2rem; flex-wrap: wrap; }
+    .social-btn { background: rgba(0,61,107,0.4); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 10px 18px; color: var(--white); text-decoration: none; font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: .9rem; letter-spacing: 1px; text-transform: uppercase; transition: border-color .2s, color .2s, background .2s; }
+    .social-btn:hover { border-color: var(--ice); color: var(--ice); background: rgba(0,212,255,0.08); }
+
+    footer { background: #020a12; border-top: 1px solid rgba(0,212,255,0.1); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 3px; color: var(--ice); }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: .85rem; color: var(--grey); }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: .85rem; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--ice); }
+
+    @keyframes fadeDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,212,255,0.15); }
+      .nosotros-grid, .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
+      .gallery-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-item:first-child { grid-column: span 2; }
+      .hero-stats { gap: 1.5rem; }
+      .inscripcion-card { padding: 36px 24px; }
+      .nosotros-badge { right: 0; bottom: -16px; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; flex-wrap: wrap; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#inicio" class="nav-logo">NAF<span>.</span>MVD</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#fotos">Fotos</a></li>
+      <li><a href="#inscripcion a próxima actividad">Inscripción</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#inscripcion" class="nav-cta">Sumate</a>
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <section id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-badge">Montevideo · Uruguay</div>
+    <h1 class="hero-title">
+      <span class="line-white">NADADORES</span>
+      <span class="line-ice">AGUAS</span>
+      <span class="line-accent">FRÍAS</span>
+    </h1>
+    <p class="hero-sub">Comunidad de nado en aguas abiertas y frías en Montevideo. <strong>¡Acá nadie nada solo!</strong></p>
+    <div class="hero-btns">
+      <a href="#inscripcion" class="btn-primary">Quiero unirme</a>
+      <a href="#nosotros" class="btn-secondary">Conocer más</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num"></div>
+        <div class="stat-label">Agua fría</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"></div>
+        <div class="stat-label">Aguas abiertas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num"></div>
+        <div class="stat-label">Comunidad activa</div>
+      </div>
+    </div>
+    <div class="waves">
+      <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,80 L0,80 Z" fill="#070f1c"/>
+      </svg>
+    </div>
+  </section>
+
+  <section id="nosotros">
+    <div class="nosotros-grid">
+      <div class="nosotros-visual reveal">
+        <div class="nosotros-card">
+          <span class="nosotros-icon"></span>
+          <div class="nosotros-card-title">NAF MVD</div>
+          <div class="nosotros-card-sub">Nadadores de Aguas Frías · Montevideo</div>
+        </div>
+        <div class="nosotros-badge"></div>
+      </div>
+      <div class="reveal">
+        <div class="section-tag">Quiénes somos</div>
+        <h2 class="section-title">El frío es <span>nuestro</span> elemento</h2>
+        <p class="section-desc">NAF Montevideo es una comunidad de nadadores que disfrutan del nado en aguas frías y abiertas. Nos reunimos regularmente en las playas del Cerro para nadar, compartir y empujarnos mutuamente a superar nuestros límites.</p>
+        <ul class="valores-list">
+          <li>Actividades regulares durante todo el año, incluso en invierno</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="fotos">
+    <div class="fotos-header reveal">
+      <div class="section-tag">Galería</div>
+      <h2 class="section-title">Nuestras <span>salidas</span></h2>
+      <p class="section-desc">Momentos de agua y comunidad.</p>
+    </div>
+    <div class="gallery-grid reveal">
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon"></span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Salida grupal</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon">🌅</span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Amanecer</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon">🏊</span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Aguas abiertas</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon"></span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Invierno</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon"></span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Comunidad</span></div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <span class="gp-icon"></span>
+          <p>Agregá tu foto acá</p>
+        </div>
+        <div class="gallery-overlay"><span>Montevideo</span></div>
+      </div>
+    </div>
+    <p class="fotos-note reveal">
+      ¿Tenés fotos de nuestras salidas? <a href="#contacto">Mandánoslas</a> y las sumamos a la galería.
+    </p>
+  </section>
+
+  <section id="inscripcion">
+    <div class="inscripcion-inner">
+      <div class="reveal">
+        <div class="section-tag">Unite al grupo</div>
+        <h2 class="section-title">Formulario de <span>inscripción</span></h2>
+        <p class="section-desc">Completá el formulario para sumarte a NAF Montevideo. Te contactamos para coordinar tu primera salida.</p>
+      </div>
+      <div class="inscripcion-card reveal">
+        <span class="inscripcion-icon"></span>
+        <div class="inscripcion-title">¿Listo para el frío?</div>
+        <p class="inscripcion-desc">Hacé clic en el botón para completar el formulario de inscripción. Te pedimos algunos datos básicos para coordinar tu incorporación al grupo.</p>
+        <!-- link a formulario de inscripcion a actividades-->
+        <a href="https://forms.gle/REEMPLAZAR_CON_TU_LINK" target="_blank" class="btn-inscripcion">
+          Completar formulario →
+        </a>
+        <div class="inscripcion-info">
+          <div class="info-item">
+            <span class="info-icon">🆓</span>
+            <span>Gratis unirse</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon"></span>
+            <span>Montevideo</span>
+          </div>
+          <div class="info-item">
+            <span class="info-icon"></span>
+            <span>Todo el año</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto">
+    <div class="contacto-grid">
+      <div class="reveal">
+        <div class="section-tag">Contacto</div>
+        <h2 class="section-title">Hablemos <span>del agua</span></h2>
+        <p class="section-desc">¿Tenés dudas, querés sumarte o simplemente charlar sobre nado en frío? Escribinos.</p>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon"></div>
+            <div class="contact-text">
+              <h4>Ubicación</h4>
+              <p>Montevideo, Uruguay<br>Costas del Río de la Plata</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div class="contact-text">
+              <h4>Email</h4>
+              <p><a href="mailto:nafmontevideo@gmail.com">nafmontevideo@gmail.com</a></p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"></div>
+            <div class="contact-text">
+              <h4>Instagram </h4>
+              <p>@naf_montevideo</p>
+            </div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-btn">Instagram</a>
+        </div>
+      </div>
+      <div class="reveal">
+        <form class="contact-form" id="contactForm" onsubmit="handleSubmit(event)">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" placeholder="Tu nombre" required />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" placeholder="tu@email.com" required />
+          </div>
+          <div class="form-group">
+            <label>Motivo</label>
+            <select>
+              <option value="">Seleccioná una opción</option>
+              <option>Quiero unirme al grupo</option>
+              <option>Tengo una pregunta</option>
+              <option>Quiero enviar fotos</option>
+              <option>Otro</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Mensaje</label>
+            <textarea placeholder="Escribí tu mensaje..."></textarea>
+          </div>
+          <button type="submit" class="btn-submit">Enviar mensaje</button>
+        </form>
+        <div class="form-success" id="formSuccess">
+          ✅ ¡Mensaje enviado! Te respondemos pronto 🌊
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo">NAF<span>.</span>MVD</div>
+    <div class="footer-copy">© 2025 NAF Montevideo · Nadadores de Aguas Frías</div>
+    <div class="footer-links">
+      <a href="#inicio">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#fotos">Fotos</a>
+      <a href="#inscripcion">Inscripción</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    function handleSubmit(e) {
+      e.preventDefault();
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+  </script>
+</body>
 </html>
-E0F
