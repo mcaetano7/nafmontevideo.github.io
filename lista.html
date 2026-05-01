@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NAF · Lista de salida</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ice: #00d4ff;
+      --dark: #050f1a;
+      --deep: #003d6b;
+      --accent: #f0a500;
+      --white: #f0f8ff;
+      --grey: #7a9bb5;
+    }
+    body { font-family: system-ui, sans-serif; background: var(--dark); color: var(--white); min-height: 100vh; padding: 24px 20px; }
+
+    /* PIN */
+    #pantalla-pin { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 1.2rem; text-align: center; }
+    #pantalla-pin h1 { font-size: 2rem; letter-spacing: 3px; color: var(--ice); }
+    #pantalla-pin p { color: var(--grey); font-size: .95rem; }
+    #input-pin { background: rgba(0,61,107,0.4); border: 1px solid rgba(0,212,255,0.3); border-radius: 8px; padding: 12px 20px; color: var(--white); font-size: 1.3rem; text-align: center; letter-spacing: 6px; width: 180px; outline: none; }
+    #input-pin:focus { border-color: var(--ice); }
+    #btn-pin { background: var(--ice); color: var(--dark); border: none; border-radius: 8px; padding: 12px 32px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    #error-pin { color: #f87171; font-size: .9rem; display: none; }
+
+    /* ACCION */
+    #pantalla-accion { display: none; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; gap: 1.2rem; text-align: center; }
+    #pantalla-accion h2 { font-size: 1.3rem; color: var(--white); }
+    #pantalla-accion p { color: var(--grey); font-size: .9rem; max-width: 280px; line-height: 1.5; }
+    .inputs-nombre { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; }
+    .inputs-nombre input { background: rgba(0,61,107,0.4); border: 1px solid rgba(0,212,255,0.2); border-radius: 8px; padding: 12px 16px; color: var(--white); font-size: 1rem; outline: none; text-align: center; }
+    .inputs-nombre input:focus { border-color: var(--ice); }
+    .botones-accion { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 280px; }
+    .btn-anotarme { background: var(--ice); color: var(--dark); border: none; border-radius: 8px; padding: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 1px; }
+    .btn-anotarme:active { opacity: .8; }
+    .btn-bajarme { background: transparent; color: #f87171; border: 1px solid #f87171; border-radius: 8px; padding: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; letter-spacing: 1px; }
+    .btn-bajarme:active { opacity: .8; }
+    .msg-accion { font-size: .9rem; min-height: 1.2rem; }
+    .msg-ok { color: #4ade80; }
+    .msg-err { color: #f87171; }
+    .btn-ver-lista { background: transparent; border: none; color: var(--grey); font-size: .85rem; cursor: pointer; text-decoration: underline; margin-top: .5rem; }
+
+    /* LISTA */
+    #pantalla-lista { display: none; }
+    .encabezado { margin-bottom: 1.5rem; }
+    .encabezado h2 { font-size: 1.4rem; color: var(--white); }
+    .encabezado p { color: var(--grey); font-size: .9rem; margin-top: 4px; }
+    .badge { display: inline-block; background: rgba(0,212,255,0.15); border: 1px solid rgba(0,212,255,0.3); color: var(--ice); font-size: .75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 4px 12px; border-radius: 4px; margin-top: 8px; }
+    .lista { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem; }
+    .item { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 8px; background: rgba(0,61,107,0.25); border: 1px solid rgba(0,212,255,0.15); }
+    .num { font-size: .8rem; color: var(--grey); min-width: 20px; text-align: right; }
+    .nombre-item { flex: 1; font-size: 1rem; color: var(--white); }
+    .footer { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+    .btn-wpp { background: var(--accent); color: var(--dark); border: none; border-radius: 8px; padding: 12px 20px; font-size: .95rem; font-weight: 700; cursor: pointer; flex: 1; }
+    .btn-volver { background: transparent; border: 1px solid rgba(255,255,255,0.15); color: var(--grey); border-radius: 8px; padding: 12px 16px; font-size: .9rem; cursor: pointer; }
+    .copiado { color: #4ade80; font-size: .85rem; margin-top: .6rem; display: none; }
+    .vacia { color: var(--grey); font-size: .9rem; text-align: center; padding: 1.5rem; }
+  </style>
+</head>
+<body>
+
+  <!-- PANTALLA PIN -->
+  <div id="pantalla-pin">
+    <h1>NAF</h1>
+    <p>Ingresá el PIN del grupo para continuar</p>
+    <input id="input-pin" type="number" placeholder="····" />
+    <div id="error-pin">PIN incorrecto</div>
+    <button id="btn-pin" onclick="verificarPin()">Entrar</button>
+  </div>
+
+  <!-- PANTALLA ACCION -->
+  <div id="pantalla-accion">
+    <h2 id="titulo-accion">Cargando...</h2>
+    <p>Escribí tu nombre y apellido y usá los botones para anotarte o bajarte</p>
+    <div class="inputs-nombre">
+      <input type="text" id="input-nombre" placeholder="Nombre" maxlength="30" />
+      <input type="text" id="input-apellido" placeholder="Apellido" maxlength="30" />
+    </div>
+    <div class="botones-accion">
+      <button class="btn-anotarme" onclick="anotarse()">Anotarme</button>
+      <button class="btn-bajarme" onclick="bajarse()">Bajarme</button>
+    </div>
+    <div class="msg-accion" id="msg-accion"></div>
+    <button class="btn-ver-lista" onclick="mostrarLista()">Ver lista completa</button>
+  </div>
+
+  <!-- PANTALLA LISTA -->
+  <div id="pantalla-lista">
+    <div class="encabezado">
+      <h2 id="titulo-lista">Salida NAF</h2>
+      <p id="subtitulo-lista"></p>
+      <div class="badge" id="badge-count">0 anotados</div>
+    </div>
+    <div class="lista" id="lista"></div>
+    <div class="footer">
+      <button class="btn-volver" onclick="mostrarAccion()">← Volver</button>
+      <button class="btn-wpp" onclick="copiarWhatsapp()">Copiar para WhatsApp</button>
+    </div>
+    <div class="copiado" id="copiado">Copiado</div>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyBY-fOpUXvMto5AH27XT3p6tL_Dhmc8YP8",
+  authDomain: "naf-montevideo.firebaseapp.com",
+  databaseURL: "https://naf-montevideo-default-rtdb.firebaseio.com",
+  projectId: "naf-montevideo",
+  storageBucket: "naf-montevideo.firebasestorage.app",
+  messagingSenderId: "280697193920",
+  appId: "1:280697193920:web:e5b7a3b21f9fa460c3f425"
+};
+
+    // cambiar pin una vez cada tanto
+    const PIN_CORRECTO = "lentejas";
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const ref = db.ref("lista_activa");
+
+    // ── normaliza nombre 
+    function normalizar(texto) {
+      return texto.trim().toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ");
+    }
+
+    function nombreCompleto() {
+      const n = document.getElementById("input-nombre").value.trim();
+      const a = document.getElementById("input-apellido").value.trim();
+      return (n + " " + a).trim();
+    }
+
+    function mostrarMsg(texto, tipo) {
+      const el = document.getElementById("msg-accion");
+      el.textContent = texto;
+      el.className = "msg-accion " + (tipo === "ok" ? "msg-ok" : "msg-err");
+      setTimeout(() => { el.textContent = ""; el.className = "msg-accion"; }, 3000);
+    }
+
+    // ── PIN ──
+    function verificarPin() {
+      const val = document.getElementById("input-pin").value.trim();
+      if (val === PIN_CORRECTO) {
+        document.getElementById("pantalla-pin").style.display = "none";
+        mostrarAccion();
+        // escuchar título en tiempo real
+        ref.child("titulo").on("value", snap => {
+          const t = snap.val() || "Salida NAF";
+          document.getElementById("titulo-accion").textContent = t;
+          document.getElementById("titulo-lista").textContent = t;
+        });
+        ref.child("subtitulo").on("value", snap => {
+          document.getElementById("subtitulo-lista").textContent = snap.val() || "";
+        });
+      } else {
+        document.getElementById("error-pin").style.display = "block";
+      }
+    }
+    document.getElementById("input-pin").addEventListener("keydown", e => {
+      if (e.key === "Enter") verificarPin();
+    });
+
+    // ── PANTALLAS ──
+    function mostrarAccion() {
+      document.getElementById("pantalla-lista").style.display = "none";
+      document.getElementById("pantalla-accion").style.display = "flex";
+    }
+    function mostrarLista() {
+      document.getElementById("pantalla-accion").style.display = "none";
+      document.getElementById("pantalla-lista").style.display = "block";
+      escucharLista();
+    }
+
+    // ── ANOTARSE ──
+    function anotarse() {
+      const nombre = nombreCompleto();
+      if (!nombre || nombre.length < 3) { mostrarMsg("Escribí tu nombre y apellido", "err"); return; }
+      const clave = normalizar(nombre);
+      ref.child("anotados").once("value", snap => {
+        const datos = snap.val() || {};
+        // buscar si ya existe alguien con el mismo nombre normalizado
+        const yaExiste = Object.keys(datos).some(k => k === clave);
+        if (yaExiste) {
+          mostrarMsg("Ya estás anotado", "ok");
+          return;
+        }
+        ref.child("anotados/" + clave).set(nombre);
+        mostrarMsg("Te anotaste!", "ok");
+      });
+    }
+
+    // ── BAJARSE ──
+    function bajarse() {
+      const nombre = nombreCompleto();
+      if (!nombre || nombre.length < 3) { mostrarMsg("Escribí tu nombre y apellido", "err"); return; }
+      const clave = normalizar(nombre);
+      ref.child("anotados/" + clave).once("value", snap => {
+        if (snap.exists()) {
+          ref.child("anotados/" + clave).remove();
+          mostrarMsg("Te bajaste :(", "ok");
+        } else {
+          mostrarMsg("No encontramos tu nombre en la lista", "err");
+        }
+      });
+    }
+
+    document.getElementById("input-apellido").addEventListener("keydown", e => {
+      if (e.key === "Enter") anotarse();
+    });
+
+    // ── LISTA EN TIEMPO REAL ──
+    let escuchando = false;
+    function escucharLista() {
+      if (escuchando) return;
+      escuchando = true;
+      ref.child("anotados").on("value", snap => {
+        const datos = snap.val() || {};
+        const nombres = Object.values(datos);
+        document.getElementById("badge-count").textContent =
+          nombres.length + " anotado" + (nombres.length === 1 ? "" : "s");
+        const lista = document.getElementById("lista");
+        lista.innerHTML = "";
+        if (nombres.length === 0) {
+          lista.innerHTML = '<div class="vacia">Nadie anotado todavía</div>';
+          return;
+        }
+        nombres.forEach((n, i) => {
+          const div = document.createElement("div");
+          div.className = "item";
+          div.innerHTML = `<span class="num">${i + 1}</span><span class="nombre-item">${n}</span>`;
+          lista.appendChild(div);
+        });
+      });
+    }
+
+    // ── COPIAR WHATSAPP ──
+    function copiarWhatsapp() {
+      ref.once("value", snap => {
+        const datos = snap.val() || {};
+        const nombres = Object.values(datos.anotados || {});
+        if (nombres.length === 0) { alert("No hay nadie anotado todavía."); return; }
+        let txt = `*NAF Montevideo*\n${datos.titulo || "Salida"}\n\n`;
+        txt += `*Anotados (${nombres.length}):*\n`;
+        nombres.forEach((n, i) => { txt += `${i + 1}. ${n}\n`; });
+        navigator.clipboard.writeText(txt).then(() => {
+          const el = document.getElementById("copiado");
+          el.style.display = "block";
+          setTimeout(() => { el.style.display = "none"; }, 2500);
+        }).catch(() => alert(txt));
+      });
+    }
+  </script>
+</body>
+</html>
