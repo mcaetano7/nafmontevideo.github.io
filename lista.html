@@ -179,6 +179,18 @@ const firebaseConfig = {
           document.getElementById("titulo-accion").textContent = tituloParam;
           document.getElementById("titulo-lista").textContent = tituloParam;
         }
+        if (tituloParam && fechaParam) {
+         ref.once("value", snap => {
+          const datos = snap.val() || {};
+          if (!datos.titulo || datos.titulo !== tituloParam) {
+            ref.set({
+              titulo: tituloParam,
+               subtitulo: fechaParam + (horaParam ? " · " + horaParam + "hs" : ""),
+              anotados: {}
+      });
+    }
+  });
+}
         if (inscripcionCerrada) {
           document.querySelector(".btn-anotarme").disabled = true;
           document.querySelector(".btn-anotarme").style.opacity = "0.4";
