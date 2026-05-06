@@ -93,6 +93,7 @@
       .panel { padding: 24px 18px 36px; }
     }
   </style>
+  <link rel="icon" href="img/logo.ico">
 </head>
 <body>
 
@@ -253,7 +254,7 @@
           ${ev.lugar !== "consultar" ? `<div class="campo"><span class="campo-icon">📍</span><div><div class="campo-label">Lugar</div><div class="campo-valor">${ev.lugar}</div></div></div>` : ""}
           ${ev.distancia !== "consultar" ? `<div class="campo"><div><div class="campo-label">Distancia</div><div class="campo-valor">${ev.distancia}</div></div></div>` : ""}
           ${ev.descripcion && ev.descripcion !== "N/A" ? `<div class="campo"><div><div class="campo-label">Info</div><div class="campo-valor">${ev.descripcion}</div></div></div>` : ""}
-          ${ev.hora ? `<div class="campo"><div><div class="campo-label">Hora</div><div class="campo-valor">${ev.hora}hs</div></div></div>` : ""}
+          ${ev.hora ? `<div class="campo"><div><div class="campo-label">Hora</div><div class="campo-valor">${ev.hora}h</div></div></div>` : ""}
         </div>
         ${inscHtml}
       `;
