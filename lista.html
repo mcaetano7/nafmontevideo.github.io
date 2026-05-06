@@ -115,7 +115,21 @@ const firebaseConfig = {
   messagingSenderId: "280697193920",
   appId: "1:280697193920:web:e5b7a3b21f9fa460c3f425"
 };
+    const params = new URLSearchParams(window.location.search) ;
+    const tituloParam = params.get("titulo");
+    const fechaParam = params.get("fecha");
+    const horaParam = params.get("hora");
 
+    // verificar que se cierre la inscripcion 30 min antes
+    let inscripcionCerrada = false;
+    if (fechaParam && horaParam) {
+      const partes = fechaParam.split("/");
+      let anio = parseInt(partes[2]); if (anio < 100) anio += 2000;
+      const [h, m] = horaParam.split(":").map(Number);
+      const fechaActividad = new Date (anio, parseInt(partes [1]) - 1, parseInt(partes[0]), h, m);
+      const cierre = new Date (fechaActividad.getTime() - 30 * 60 * 1000);
+      inscripcionCerrada = new Date() >= cierre;
+    }
     // cambiar pin una vez cada tanto
     const PIN_CORRECTO = "lentejas";
 
@@ -149,15 +163,29 @@ const firebaseConfig = {
       if (val === PIN_CORRECTO) {
         document.getElementById("pantalla-pin").style.display = "none";
         mostrarAccion();
+
         // escuchar título en tiempo real
         ref.child("titulo").on("value", snap => {
           const t = snap.val() || "Salida NAF";
           document.getElementById("titulo-accion").textContent = t;
           document.getElementById("titulo-lista").textContent = t;
         });
+
         ref.child("subtitulo").on("value", snap => {
           document.getElementById("subtitulo-lista").textContent = snap.val() || "";
         });
+
+        if (tituloParam) {
+          document.getElementById("titulo-accion").textContent = tituloParam;
+          document.getElementById("titulo-lista").textContent = tituloParam;
+        }
+        if (inscripcionCerrada) {
+          document.querySelector(".btn-anotarme").disabled = true;
+          document.querySelector(".btn-anotarme").style.opacity = "0.4";
+          document.querySelector(".btn-anotarme").style.cursor = "not-allowed";
+          document.getElementById("msg-accion").textContent = "Inscripción cerrada";
+          document.getElementById("msg-accion").className = "msg-accion msg-err";
+        }
       } else {
         document.getElementById("error-pin").style.display = "block";
       }
