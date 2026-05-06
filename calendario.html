@@ -238,7 +238,7 @@
 
     function renderEvento(ev) {
       let inscHtml = "";
-      if (evento.organizacion === "NAF MVD") {
+      if (ev.organizacion === "NAF MVD") {
         const params = `titulo=${encodeURIComponent(ev.nombre)}&fecha=${encodeURIComponent(ev.fecha)}&hora=${encodeURIComponent(ev.hora || "23:59")}`;
         inscHtml = `<a href="lista.html?${params}" class="btn-inscripcion">Anotarse →</a>`;
       } else if (ev.inscripcion && ev.inscripcion.startsWith("http")) {
