@@ -23,7 +23,11 @@ const calendario = [
         "inscripcion":""
     },
       {"fecha":"07/06/26",
-        "nombre":"5ta. Edición Travesía Piedra Alta","lugar":"Prado Piedra Alta, Florida","distancia":"500/1000/2000 metros","descripcion":"Cazuela de lentejas y medalla finisher","inscripcion":"Informes: Mauricio Duarte: 098 797 836"},
+        "nombre":"5ta. Edición Travesía Piedra Alta",
+        "lugar":"Prado Piedra Alta, Florida",
+        "distancia":"500/1000/2000 metros",
+        "descripcion":"Cazuela de lentejas y medalla finisher",
+        "inscripcion":"https://shorturl.at/zLPsZ"},
       {"fecha":"20/06/26","nombre":"Rutas de Nado","lugar":"Playa Solymar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"21/06/26","nombre":"Entrada del Invierno","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"21/06/26","nombre":"Brazadas Solidarias (NAF Maldonado)","lugar":"Muelle Mailhos","distancia":"Se sugiere desde el muelle de Mailhos hasta el muelle de la Parada 3 y regreso.","descripcion":"Colaboración: $300 o $500 a beneficio de la Escuela España.","inscripcion":"@nafmaldonado en instagram"},
