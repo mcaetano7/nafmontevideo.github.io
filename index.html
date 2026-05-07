@@ -29,6 +29,7 @@
     }
     .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.7rem; letter-spacing: 3px; color: var(--ice); text-decoration: none; }
     .nav-logo span { color: var(--accent); }
+    .nav-logo { display: flex; align-items: center; gap: 8px;}
     .nav-links { display: flex; gap: 2rem; list-style: none; }
     .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--ice); }
@@ -178,9 +179,10 @@
 <body>
 
   <nav>
-    <a href="#inicio" class="nav-logo">NAF<span> </span>MVD</a>
-      <img src="img/logo.png" alt="NAF MVD" style="height: 40px;">
-    </a>
+    <a href="#inicio" class="nav-logo">
+      <img src="img/logo.png" alt="NAF MVD" style="height: 36px; margin-right: 8px; vertical-align: middle;">NAF<span> </span>MVD
+    </a> 
+
     <ul class="nav-links" id="navLinks">
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#fotos">Fotos</a></li>
