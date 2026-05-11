@@ -30,6 +30,12 @@
     .nav-logo span { color: var(--accent); }
     .nav-back { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); text-decoration: none; transition: color .2s; }
     .nav-back:hover { color: var(--ice); }
+    .nav-links a { 
+      font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; 
+      text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); 
+      text-decoration: none; transition: color .2s; 
+}
+    .nav-links a:hover { color: var(--ice); }
 
     .page-header { padding: 50px 6vw 30px; border-bottom: 1px solid rgba(0,212,255,0.1); }
     .page-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--ice); margin-bottom: .5rem; }
@@ -92,6 +98,18 @@
       .num-dia { font-size: .7rem; }
       .panel { padding: 24px 18px 36px; }
     }
+
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; 
+        background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; 
+        border-bottom: 1px solid rgba(0,212,255,0.15); 
+        list-style: none; }
+}
   </style>
   <link rel="icon" href="img\logo.png">
 </head>
@@ -99,7 +117,7 @@
 
   <nav>
      <a href="index.html" class="nav-logo">
-  <img src="img/logo.png" alt="NAF MVD" style="height: 36px; margin-right: 8px; vertical-align: middle;">NAF<span></span>MVD
+  <img src="img/logo.png" alt="NAF MVD" style="height: 36px; margin-right: 8px; vertical-align: middle;">NAF<span> </span>MVD
 </a>
 
 <ul class="nav-links" id="navLinks">
@@ -294,6 +312,13 @@
     });
 
     renderCalendario();
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(a =>
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
+    )
   </script>
   <footer>
     <div class="footer-logo">NAF<span> </span>MVD</div>
@@ -302,8 +327,7 @@
       <a href="#inicio">Inicio</a>
       <a href="index.html#nosotros">Nosotros</a>
       <a href="index.html#fotos">Fotos</a>
-      <a href="#contacto">Contacto</a>
-      <a href="calendario.html">Calendario</a>
+      <a href="index.html#contacto">Contacto</a>
     </div>
   </footer>
 
