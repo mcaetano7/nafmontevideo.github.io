@@ -159,7 +159,8 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 768px) {
-      .nav-links, .nav-cta { display: none; }
+      .nav-links { display: none; }
+      .nav-cta { order: -1; }
       .hamburger { display: flex; }
       .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,212,255,0.15); }
       .nosotros-grid, .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -186,7 +187,6 @@
     <ul class="nav-links" id="navLinks">
       <li><a href="#nosotros">Nosotros</a></li>
       <li><a href="#fotos">Fotos</a></li>
-      <li><a href="#inscripcion">Inscripción</a></li>
       <li><a href="#contacto">Contacto</a></li>
       <li><a href="calendario.html">Calendario</a></li>
     </ul>
