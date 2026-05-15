@@ -101,9 +101,10 @@
 
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+    .nav-links { display: none; }
 
-    @media (max-width: 768px) {
-      .nav-links { display: none; }
+    @media (max-width: 1254px) {
+      
       .hamburger { display: flex; }
       .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; 
         background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; 
@@ -227,6 +228,7 @@
 
         const numDiv = document.createElement("div");
         numDiv.className = "num-dia";
+
         numDiv.textContent = d;
         celda.appendChild(numDiv);
 
