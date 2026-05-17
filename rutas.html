@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rutas de Nado · NAF Montevideo</title>
+  <meta name="description" content="Rutas de Nado NAF Montevideo. Recorremos playas nadando en grupo. Abierto a todos, requiere boya.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/logo.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ice: #00d4ff;
+      --deep: #003d6b;
+      --dark: #050f1a;
+      --wave: #0077b6;
+      --accent: #f0a500;
+      --white: #f0f8ff;
+      --grey: #7a9bb5;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--dark); color: var(--white); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 6vw;
+      background: rgba(5,15,26,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,212,255,0.12);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--ice); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ice); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-back { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .nav-back:hover { color: var(--ice); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      max-width: 700px; margin: 40px auto 0;
+      padding: 0 6vw;
+    }
+    .flyer {
+      width: 100%; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      display: block;
+    }
+
+    /* CONTENIDO */
+    .contenido { max-width: 700px; margin: 0 auto; padding: 50px 6vw; }
+
+    .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--ice); margin-bottom: .6rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 8vw, 4.5rem); letter-spacing: 2px; line-height: 1; margin-bottom: 1.2rem; }
+    .section-title span { color: var(--ice); }
+    .section-desc { color: rgba(240,248,255,0.8); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; }
+
+    .info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 2.5rem; }
+    .info-card { background: rgba(0,61,107,0.3); border: 1px solid rgba(0,212,255,0.15); border-radius: 10px; padding: 16px; text-align: center; }
+    .info-card-icon { font-size: 1.8rem; margin-bottom: .4rem; display: block; }
+    .info-card-label { font-family: 'Barlow Condensed', sans-serif; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); margin-bottom: .2rem; }
+    .info-card-valor { font-size: .9rem; color: var(--white); }
+
+    /* PROXIMAS FECHAS */
+    .fechas-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--ice); margin-bottom: 1rem; }
+    .fechas-lista { display: flex; flex-direction: column; gap: 8px; margin-bottom: 2.5rem; }
+    .fecha-item { display: flex; align-items: center; gap: 14px; background: rgba(0,61,107,0.25); border: 1px solid rgba(0,212,255,0.12); border-radius: 8px; padding: 12px 16px; }
+    .fecha-item.pasada { opacity: .4; }
+    .fecha-dia { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--ice); line-height: 1; min-width: 36px; text-align: center; }
+    .fecha-info { flex: 1; }
+    .fecha-mes { font-family: 'Barlow Condensed', sans-serif; font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); }
+    .fecha-lugar { font-size: .95rem; color: var(--white); margin-top: 2px; }
+    .fecha-hora { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; color: var(--grey); }
+    .sin-fechas { color: var(--grey); font-size: .9rem; font-style: italic; padding: 1rem 0; }
+
+    /* BOTON INSCRIPCION */
+    .btn-inscripcion {
+      display: block; width: 100%; text-align: center;
+      background: var(--accent); color: var(--dark);
+      border: none; border-radius: 8px;
+      padding: 16px; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      text-transform: uppercase; letter-spacing: 2px;
+      text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 0 28px rgba(240,165,0,0.35);
+      margin-bottom: 1rem;
+    }
+    .btn-inscripcion:hover { background: #ffb800; transform: translateY(-2px); }
+    .nota-boya { font-size: .85rem; color: var(--grey); text-align: center; }
+    .nota-boya strong { color: var(--white); }
+
+    /* FOOTER */
+    footer { background: #020a12; border-top: 1px solid rgba(0,212,255,0.1); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 40px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 3px; color: var(--ice); }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: .85rem; color: var(--grey); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: .85rem; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--ice); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,212,255,0.15); list-style: none; }
+      .nav-links.open a { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); text-decoration: none; }
+      .info-cards { grid-template-columns: 1fr 1fr; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.png" alt="NAF MVD" style="height: 36px;">NAF<span></span>MVD
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#nosotros">Nosotros</a></li>
+      <li><a href="index.html#fotos">Fotos</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back">← Volver</a>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <img src="img/flyers/rutas-de-nado.png" alt="Rutas de Nado NAF Montevideo" class="flyer">
+  </div>
+
+  <div class="contenido">
+    <div class="section-tag">Actividad recurrente</div>
+    <h1 class="section-title">Rutas de <span>Nado</span></h1>
+    <p class="section-desc">Recorremos playas de la franja costera nadando en grupo. Cada fecha es en una playa diferente — una forma de conocer nuestro país desde el agua. Abierto a todos de manera individual o en grupo.</p>
+
+
+    <div class="fechas-titulo">Próximas fechas</div>
+    <div class="fechas-lista" id="fechas-lista">
+      <div class="sin-fechas">Cargando fechas...</div>
+    </div>
+
+    <!-- Reemplazar con link de forms -->
+    <a href="https://forms.office.com/r/SwKGP4gd7C" target="_blank" class="btn-inscripcion">
+      Inscribirme →
+    </a>
+    <p class="nota-boya">⚠️ <strong>Uso de boya obligatorio.</strong> Si no tenés, consultanos antes de inscribirte.</p>
+  </div>
+
+  <footer>
+    <div class="footer-logo">NAF<span> </span>MVD</div>
+    <div class="footer-copy">© 2026 NAF Montevideo</div>
+    <div class="footer-links">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#fotos">Fotos</a>
+      <a href="calendario.html">Calendario</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+  </footer>
+
+  <script src="actividades.js"></script>
+  <script>
+    const MESES = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+
+    function parsearFecha(str) {
+      if (!str) return null;
+      const p = str.split("/");
+      if (p.length !== 3) return null;
+      let anio = parseInt(p[2]); if (anio < 100) anio += 2000;
+      return new Date(anio, parseInt(p[1]) - 1, parseInt(p[0]));
+    }
+
+    function renderFechas() {
+      const hoy = new Date();
+      const rutas = calendario
+        .filter(ev => ev.nombre.toLowerCase().includes("rutas de nado") && ev.fecha)
+        .map(ev => ({ ...ev, fecha_obj: parsearFecha(ev.fecha) }))
+        .sort((a, b) => a.fecha_obj - b.fecha_obj);
+
+      const lista = document.getElementById("fechas-lista");
+
+      if (!rutas.length) {
+        lista.innerHTML = '<div class="sin-fechas">No hay fechas programadas por el momento.</div>';
+        return;
+      }
+
+      lista.innerHTML = rutas.map(ev => {
+        const pasada = ev.fecha_obj < hoy;
+        return `
+          <div class="fecha-item ${pasada ? "pasada" : ""}">
+            <div class="fecha-dia">${ev.fecha_obj.getDate()}</div>
+            <div class="fecha-info">
+              <div class="fecha-mes">${MESES[ev.fecha_obj.getMonth()]} ${ev.fecha_obj.getFullYear()}</div>
+              <div class="fecha-lugar">${ev.lugar !== "consultar" ? ev.lugar : "Lugar a confirmar"}</div>
+            </div>
+            ${ev.hora ? `<div class="fecha-hora">${ev.hora}hs</div>` : ""}
+          </div>
+        `;
+      }).join("");
+    }
+
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'));
+    });
+
+    renderFechas();
+  </script>
+</body>
+</html>

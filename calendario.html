@@ -278,8 +278,8 @@
         inscHtml = `<a href="lista.html?${params}" class="btn-inscripcion">Anotarse →</a>`;
       } else if (ev.inscripcion && ev.inscripcion.startsWith("http")) {
         inscHtml = `<a href="${ev.inscripcion}" target="_blank" class="btn-inscripcion">Inscribirse →</a>`;
-      } else if (ev.inscripcion) {
-        inscHtml = `<div class="btn-inscripcion texto"> ${ev.inscripcion}</div>`;
+      } else if (ev.inscripcion === "rutas.html") {
+        inscHtml = `<a href="rutas.html" class="btn-inscripcion">Ver actividad →</a>`;
       }
       return `
         <div class="panel-fecha">${formatearFecha(ev.fecha)}</div>
