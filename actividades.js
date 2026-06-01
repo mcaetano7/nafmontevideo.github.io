@@ -28,7 +28,7 @@ const calendario = [
         "distancia":"500/1000/2000 metros",
         "descripcion":"Cazuela de lentejas y medalla finisher",
         "inscripcion":"https://shorturl.at/zLPsZ"},
-      {"fecha":"20/06/26",
+      {"fecha":"27/06/26",
         "nombre":"Rutas de Nado"
         ,"lugar":"Playa Solymar"
         ,"distancia":"consultar",
