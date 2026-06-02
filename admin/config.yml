@@ -2,6 +2,7 @@ backend:
   name: github
   repo: mcaetano7/nafmontevideo.github.io
   branch: main
+  site_url: https://mcaetano7.github.io/nafmontevideo.github.io
   auth_endpoint: https://sveltia-cms-auth.pages.dev/auth
   base_url: https://sveltia-cms-auth.pages.dev
 
