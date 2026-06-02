@@ -1,0 +1,20 @@
+backend:
+  name: github
+  repo: mcaetano7/nafmontevideo.github.io
+  branch: main
+  auth_endpoint: https://sveltia-cms-auth.pages.dev/auth
+  base_url: https://sveltia-cms-auth.pages.dev
+
+media_folder: img/gallery
+public_folder: img/gallery
+
+collections:
+  - name: galeria
+    label: Galería de fotos
+    folder: _data/galeria
+    create: true
+    fields:
+      - { label: Evento, name: titulo, widget: string }
+      - { label: Fecha, name: fecha, widget: string }
+      - { label: Foto, name: foto, widget: image }
+      - { label: Descripción, name: descripcion, widget: string, required: false }
