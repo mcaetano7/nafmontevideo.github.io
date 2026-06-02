@@ -6,6 +6,11 @@
   <title>NAF Montevideo · Admin</title>
 </head>
 <body>
+  <script>
+  if (window.location.hash && window.location.hash.includes('invite_token')) {
+    window.location.href = '/nafmontevideo.github.io/admin/#' + window.location.hash.slice(1);
+  }
+  </script>
   <script src="https://unpkg.com/decap-cms@3.1.2/dist/decap-cms.js"></script>
 </body>
 </html>
