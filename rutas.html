@@ -152,9 +152,44 @@
     </div>
 
     <!-- Reemplazar con link de forms -->
-    <a href="https://forms.office.com/r/SwKGP4gd7C" target="_blank" class="btn-inscripcion">
-      Inscribirme →
-    </a>
+    <div id="titulo-actividad" class="section-tag"></div>
+
+<form id="form-inscripcion" class="contact-form">
+  <div class="form-group">
+    <label>Nombre</label>
+    <input type="text" id="nombre" placeholder="Tu nombre" required />
+  </div>
+  <div class="form-group">
+    <label>Apellido</label>
+    <input type="text" id="apellido" placeholder="Tu apellido" required />
+  </div>
+  <div class="form-group">
+    <label>Teléfono</label>
+    <input type="tel" id="telefono" placeholder="09X XXX XXX" required />
+  </div>
+  <div class="form-group">
+    <label>Edad</label>
+    <input type="number" id="edad" min="5" max="99" required />
+  </div>
+  <div class="form-group">
+    <label>Grupo de nado</label>
+    <input type="text" id="grupo" placeholder="Ej: NAF Montevideo" />
+  </div>
+  <div id="campos-menor" style="display:none; flex-direction:column; gap:1rem;">
+    <div class="form-group">
+      <label>Nombre del adulto responsable</label>
+      <input type="text" id="responsable" placeholder="Nombre completo" />
+    </div>
+    <div class="form-group">
+      <label>Contacto del adulto responsable</label>
+      <input type="text" id="contactoResponsable" placeholder="Teléfono o email" />
+    </div>
+  </div>
+  <button type="submit" class="btn-inscripcion" id="btn-enviar">Inscribirme →</button>
+</form>
+<div id="form-success" style="display:none;" class="form-success">
+  ¡Inscripción enviada!
+</div>
     <p class="nota-boya">⚠️ <strong>Uso de boya obligatorio.</strong> Si no tenés, consultanos antes de inscribirte.</p>
   </div>
 
@@ -171,6 +206,7 @@
   </footer>
 
   <script src="actividades.js"></script>
+
   <script>
     const MESES = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
 
@@ -180,6 +216,14 @@
       if (p.length !== 3) return null;
       let anio = parseInt(p[2]); if (anio < 100) anio += 2000;
       return new Date(anio, parseInt(p[1]) - 1, parseInt(p[0]));
+    }
+
+    function parsearFechaHora(fecha, hora) {
+      const d = parsearFecha(fecha);
+      if (!d || !hora) return null;
+      const [h, m] = hora.split(":").map(Number);
+      d.setHours(h, m, 0, 0);
+      return d;
     }
 
     function renderFechas() {
@@ -205,11 +249,36 @@
               <div class="fecha-mes">${MESES[ev.fecha_obj.getMonth()]} ${ev.fecha_obj.getFullYear()}</div>
               <div class="fecha-lugar">${ev.lugar !== "consultar" ? ev.lugar : "Lugar a confirmar"}</div>
             </div>
-            ${ev.hora ? `<div class="fecha-hora">${ev.hora}hs</div>` : ""}
+            ${ev.hora ? `<div class="fecha-hora">${ev.hora}h</div>` : ""}
           </div>
         `;
       }).join("");
     }
+    
+function getActividadAbierta() {
+  const ahora = new Date();
+  const rutas = calendario
+    .filter(ev => ev.nombre.toLowerCase().includes("rutas de nado") && ev.fecha && ev.hora)
+    .map(ev => ({ ...ev, fechaHora: parsearFechaHora(ev.fecha, ev.hora) }))
+    .sort((a, b) => a.fechaHora - b.fechaHora);
+
+  for (let i = 0; i < rutas.length; i++) {
+    const cierre = new Date(rutas[i].fechaHora.getTime() - 30 * 60 * 1000);
+    const apertura = i === 0 ? new Date(0) : rutas[i - 1].fechaHora;
+    if (ahora >= apertura && ahora < cierre) {
+      return rutas[i];
+    }
+  }
+  return null;
+}
+
+const actividadAbierta = getActividadAbierta();
+if (actividadAbierta) {
+  document.getElementById("titulo-actividad").textContent = 
+    actividadAbierta.nombre + " · " + actividadAbierta.fecha + " · " + actividadAbierta.lugar;
+} else {
+  document.getElementById("titulo-actividad").textContent = "No hay inscripciones abiertas en este momento";
+}
 
     function toggleMenu() {
       document.getElementById('navLinks').classList.toggle('open');
@@ -219,6 +288,52 @@
     });
 
     renderFechas();
+
+    // Mostrar campos de menor si edad < 18
+document.getElementById("edad").addEventListener("input", function() {
+  const campos = document.getElementById("campos-menor");
+  campos.style.display = parseInt(this.value) < 18 ? "flex" : "none";
+});
+
+// Envío del formulario
+document.getElementById("form-inscripcion").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  
+  if (!actividadAbierta) {
+    alert("No hay inscripciones abiertas en este momento.");
+    return;
+  }
+
+  const datos = {
+    actividad: actividadAbierta.nombre + " " + actividadAbierta.fecha,
+    nombre: document.getElementById("nombre").value,
+    apellido: document.getElementById("apellido").value,
+    telefono: document.getElementById("telefono").value,
+    edad: document.getElementById("edad").value,
+    grupo: document.getElementById("grupo").value,
+    responsable: document.getElementById("responsable").value,
+    contactoResponsable: document.getElementById("contactoResponsable").value
+  };
+
+  document.getElementById("btn-enviar").disabled = true;
+
+  try {
+    const formData = new FormData();
+Object.keys(datos).forEach(key => formData.append(key, datos[key]));
+
+  await fetch("https://script.google.com/macros/s/AKfycbzpX29veAiiRH9thdsjW_uTSVn5UXHADY1EFEgGrGLy_Cf1Xo2Q4acZQ247cSf5xnxA/exec", {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  });
+    document.getElementById("form-inscripcion").style.display = "none";
+    document.getElementById("form-success").style.display = "block";
+  } catch (err) {
+    alert("Hubo un error, intentá de nuevo.");
+    document.getElementById("btn-enviar").disabled = false;
+  }
+});
+
   </script>
 </body>
 </html>
