@@ -79,6 +79,20 @@
     .fecha-hora { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; color: var(--grey); }
     .sin-fechas { color: var(--grey); font-size: .9rem; font-style: italic; padding: 1rem 0; }
 
+    .form-group {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .form-group label {
+      width: 140px;
+      text-align: left;
+    }
+
+    .form-group input {
+      width: 250px;
+    }
     /* BOTON INSCRIPCION */
     .btn-inscripcion {
       display: block; width: 100%; text-align: center;
@@ -164,7 +178,7 @@
     <input type="text" id="apellido" placeholder="Tu apellido" required />
   </div>
   <div class="form-group">
-    <label>Teléfono</label>
+    <label>Celular</label>
     <input type="tel" id="telefono" placeholder="09X XXX XXX" required />
   </div>
   <div class="form-group">
@@ -173,16 +187,20 @@
   </div>
   <div class="form-group">
     <label>Grupo de nado</label>
-    <input type="text" id="grupo" placeholder="Ej: NAF Montevideo" />
+    <input type="text" id="grupo" placeholder="Ej: NAF Montevideo" /> 
+  
+  </div>
+  <div class="form-group">
+    <i>En caso de no pertenecer a ninguna agrupación, podés dejarlo en blanco o poner "Individual". </i>
   </div>
   <div id="campos-menor" style="display:none; flex-direction:column; gap:1rem;">
     <div class="form-group">
       <label>Nombre del adulto responsable</label>
-      <input type="text" id="responsable" placeholder="Nombre completo" />
+      <input type="text" id="responsable" placeholder="Nombre completo" required />
     </div>
     <div class="form-group">
       <label>Contacto del adulto responsable</label>
-      <input type="text" id="contactoResponsable" placeholder="Teléfono o email" />
+      <input type="text" id="contactoResponsable" placeholder="Teléfono o email" required />
     </div>
   </div>
   <button type="submit" class="btn-inscripcion" id="btn-enviar">Inscribirme →</button>

@@ -36,7 +36,6 @@ const calendario = [
         ,"distancia":"consultar",
         "descripcion":"N/A",
         "inscripcion":"rutas.html"},
-      {"fecha":"21/06/26","nombre":"Entrada del Invierno","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"21/06/26","nombre":"Brazadas Solidarias (NAF Maldonado)","lugar":"Muelle Mailhos","distancia":"Se sugiere desde el muelle de Mailhos hasta el muelle de la Parada 3 y regreso.","descripcion":"Colaboración: $300 o $500 a beneficio de la Escuela España.","inscripcion":"@nafmaldonado en instagram"},
       {"fecha":"29/06/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"11/07/26","nombre":"Concordia Nada en Invierno","lugar":"Concordia","distancia":"500m, 1k y 2k","descripcion":"Incluye remera oficial del evento, premiación por categorías, merienda de confraternidad (sábado), almuerzo (domingo), seguro del deportista, ingreso bonificado a Termas, cronometraje con chip electrónico.","inscripcion":"https://www.encarrera.com.ar/naf/?encarrera=inscripcion"},
@@ -56,7 +55,7 @@ const calendario = [
         "inscripcion":"rutas.html"},
       {"fecha":"24/08/26","nombre":"Nostalgia","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"28/08/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
-      {"fecha":"19/09/26", "hora": "11:00", "nombre":"Rutas de Nado",
+      {"fecha":"20/09/26", "hora": "11:00", "nombre":"Rutas de Nado",
         "lugar":"Muelle Mailhos (Maldonado)",
         "distancia":"consultar",
         "descripcion":"N/A",
@@ -72,6 +71,6 @@ const calendario = [
       {"fecha":"24/12/26","nombre":"Nado Navideño","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"31/12/26","nombre":"Nado Fin de Año","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"10/02/27","nombre":"Aniversario NAF Montevideo","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
-      {"fecha":"","nombre":"Hielo","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
+    
       {"fecha":"","nombre":"Despedida Fin de Año","lugar":"consultar","distancia":"consultar","descripcion":"Fecha a confirmar","inscripcion":""}
     ];
