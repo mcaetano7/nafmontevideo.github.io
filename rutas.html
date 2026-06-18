@@ -200,7 +200,7 @@
     </div>
     <div class="form-group">
       <label>Contacto del adulto responsable</label>
-      <input type="text" id="contactoResponsable" placeholder="Teléfono o email" />
+      <input type="tel" id="contactoResponsable" placeholder="09X XXX XXX" />
     </div>
   </div>
   <button type="submit" class="btn-inscripcion" id="btn-enviar">Inscribirme →</button>
@@ -338,6 +338,12 @@ document.getElementById("form-inscripcion").addEventListener("submit", async fun
   try {
     const formData = new FormData();
 Object.keys(datos).forEach(key => formData.append(key, datos[key]));
+    const edad = parseInt(datos.edad);
+    if (edad < 18 && (!datos.responsable || !datos.contactoResponsable)) {
+      alert("Es necesario completar los datos del adulto responsable");
+      document.getElementById("btn-enviar").disabled = false;
+      return;
+    }
 
   await fetch("https://script.google.com/macros/s/AKfycbzpX29veAiiRH9thdsjW_uTSVn5UXHADY1EFEgGrGLy_Cf1Xo2Q4acZQ247cSf5xnxA/exec", {
     method: "POST",
