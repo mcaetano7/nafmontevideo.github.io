@@ -15,6 +15,9 @@
   <meta property="og:url" content="https://mcaetano7.github.io/nafmontevideo.github.io/">
   <meta property="og:type" content="website">
   
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -256,38 +259,38 @@
       <p class="section-desc"></p>
     </div>
     <div class="gallery-grid reveal">
-      <div class="gallery-item">
+      <a href="img/gallery/hamburguesas18.4.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/hamburguesas18.4.jpg" alt="Almuerzo después del Aquatlón. 18/04/26">
         <div class="gallery-overlay"><span>Almuerzo después del Aquatlón. 18/04/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/Cumpleaños.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <div class="gallery-placeholder" alt="Cumpleaños"></div>
         <div class="gallery-overlay"><span>Cumpleaños</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/Lentejeada.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/Lentejeada.jpg" alt="Lentejeada. 01/05/26">
         <div class="gallery-overlay"><span>Lentejeada. 01/05/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/Lentejeada1.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/Lentejeada1.jpg" alt="Lentejeada. 01/05/26">
         <div class="gallery-overlay"><span>Lentejeada. 01/05/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/Laberinto18.5.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/Laberinto18.5.jpg" alt="Laberinto La Crimera. 18/05/26">
         <div class="gallery-overlay"><span>Laberinto La Crimera. 18/05/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/parada126.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/parada126.jpg" alt="Rutas de Nado, Parada 1. 30/05/26">
         <div class="gallery-overlay"><span>Rutas de Nado, Parada 1. 30/05/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/NadoPiedraAlta.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <div class="gallery-placeholder"></div>
         <div class="gallery-overlay"><span>Nado de la Piedra Alta - NAFlorida. 07/06/26</span></div>
-      </div>
-      <div class="gallery-item">
+      </a>
+      <a href="img/gallery/brazadassolidarias26.jpg" class="gallery-item glightbox" data-gallery="gallery">
         <img src="img/gallery/brazadassolidarias26.jpg" alt="Brazadas solidarias - NAF Maldonado. 21/06/26">
         <div class="gallery-overlay"><span>Brazadas solidarias - NAF Maldonado. 21/06/26</span></div>
-      </div>
+      </a>
       <div class="gallery-item">
         <div class="gallery-placeholder"></div>
         <div class="gallery-overlay"><span></span></div>
@@ -426,6 +429,7 @@
       document.getElementById('contactForm').style.display = 'none';
       document.getElementById('formSuccess').style.display = 'block';
     }
+    const lightbox = GLightbox();
   </script>
 </body>
 </html>
