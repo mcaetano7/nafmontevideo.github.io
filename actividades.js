@@ -60,7 +60,6 @@ const calendario = [
         "distancia":"consultar",
         "descripcion":"N/A",
         "inscripcion":""},
-      {"fecha":"22/09/26","nombre":"Entrada de la Primavera","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"26/09/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"26/10/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"08/11/26","nombre":"Riachuelo","lugar":"Colonia","distancia":"consultar","descripcion":"N/A","inscripcion":""},
