@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aquathlon 2026 · NAF Montevideo</title>
+  <meta name="description" content="Inscripción oficial al Aquathlon NAF Montevideo. Corrida y  en aguas abiertas.">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="img/logo.ico">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ice: #00d4ff;
+      --deep: #003d6b;
+      --dark: #050f1a;
+      --wave: #0077b6;
+      --accent: #f0a500;
+      --white: #f0f8ff;
+      --grey: #7a9bb5;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--dark); color: var(--white); min-height: 100vh; }
+
+    /* NAV */
+    nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 6vw;
+      background: rgba(5,15,26,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(0,212,255,0.12);
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 3px; color: var(--ice); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--ice); }
+    .nav-right { display: flex; align-items: center; gap: 12px; }
+    .nav-back { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .nav-back:hover { color: var(--ice); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
+    .btn-reglamento {
+  display: inline-block;
+  background: transparent;
+  border: 1px solid rgba(0,212,255,0.4);
+  color: var(--ice);
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 600;
+  font-size: .95rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-decoration: none;
+  margin-bottom: 2rem;
+  display: block;
+  transition: border-color .2s, background .2s;
+}
+.btn-reglamento:hover {
+  background: rgba(0,212,255,0.08);
+  border-color: var(--ice);
+}
+
+    /* HERO */
+    .hero {
+      position: relative; overflow: hidden;
+      max-width: 700px; margin: 40px auto 0;
+      padding: 0 6vw;
+    }
+    .flyer {
+      width: 100%; border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      display: block;
+    }
+
+    /* CONTENIDO */
+    .contenido { max-width: 700px; margin: 0 auto; padding: 40px 6vw; }
+
+    .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; color: var(--ice); margin-bottom: .6rem; }
+    .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 8vw, 4.5rem); letter-spacing: 2px; line-height: 1; margin-bottom: 1.2rem; }
+    .section-title span { color: var(--ice); }
+    .section-desc { color: rgba(240,248,255,0.8); font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem; }
+
+    /* FORMULARIO ESTILIZADO */
+    .form-section {
+      background: rgba(0,61,107,0.25);
+      border: 1px solid rgba(0,212,255,0.18);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 2rem;
+    }
+
+    .form-block-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 2px;
+      color: var(--ice); margin-bottom: 14px;
+      border-bottom: 1px solid rgba(0,212,255,0.12);
+      padding-bottom: 6px;
+    }
+
+    .form-grid {
+      display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex; flex-direction: column; gap: 6px;
+    }
+
+    .form-group label {
+      font-size: .9rem; font-weight: 600; color: var(--white);
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      background: rgba(5,15,26,0.8);
+      border: 1px solid rgba(0,212,255,0.25);
+      border-radius: 6px;
+      padding: 12px;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      outline: none; border-color: var(--ice);
+    }
+
+    .duo-box {
+      background: rgba(0,212,255,0.05);
+      border: 1px dashed rgba(0,212,255,0.3);
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 10px;
+    }
+
+    /* AVISOS Y CHECKBOXES */
+    .nota-equipo {
+      background: rgba(240,165,0,0.12);
+      border-left: 4px solid var(--accent);
+      padding: 14px; border-radius: 4px;
+      font-size: .9rem; color: rgba(240,248,255,0.9);
+      margin-bottom: 20px; line-height: 1.5;
+    }
+
+    .pago-info {
+      background: rgba(0,61,107,0.4);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px; padding: 16px;
+      margin-bottom: 16px; font-size: .9rem;
+    }
+    .pago-info code {
+      background: rgba(0,212,255,0.15); color: var(--ice);
+      padding: 2px 6px; border-radius: 4px; font-family: monospace;
+    }
+
+    .checkbox-group {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; color: rgba(240,248,255,0.85);
+      margin-bottom: 12px; line-height: 1.4; cursor: pointer;
+    }
+    .checkbox-group input { width: auto; margin-top: 2px; }
+
+    /* BOTON INSCRIPCION */
+    .btn-inscripcion {
+      display: block; width: 100%; text-align: center;
+      background: var(--accent); color: var(--dark);
+      border: none; border-radius: 8px;
+      padding: 16px; font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700; font-size: 1.15rem;
+      text-transform: uppercase; letter-spacing: 2px;
+      cursor: pointer;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 0 28px rgba(240,165,0,0.35);
+      margin-top: 10px;
+    }
+    .btn-inscripcion:hover { background: #ffb800; transform: translateY(-2px); }
+    .btn-inscripcion:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .form-success {
+      background: rgba(0,212,255,0.1);
+      border: 1px solid var(--ice);
+      border-radius: 8px; padding: 20px; text-align: center;
+      color: var(--ice); font-size: 1.1rem; font-weight: 600;
+    }
+
+    /* FOOTER */
+    footer { background: #020a12; border-top: 1px solid rgba(0,212,255,0.1); padding: 40px 6vw; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-top: 40px; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 3px; color: var(--ice); }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: .85rem; color: var(--grey); }
+    .footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .footer-links a { font-size: .85rem; color: var(--grey); text-decoration: none; transition: color .2s; }
+    .footer-links a:hover { color: var(--ice); }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 60px; left: 0; right: 0; background: rgba(5,15,26,0.97); padding: 2rem; gap: 1.5rem; border-bottom: 1px solid rgba(0,212,255,0.15); list-style: none; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="img/logo.png" alt="NAF MVD" style="height: 36px;">NAF<span></span>MVD
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="index.html#nosotros">Nosotros</a></li>
+      <li><a href="index.html#fotos">Fotos</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+      <li><a href="calendario.html">Calendario</a></li>
+      <li><a href="rutas.html">Rutas de Nado 2026</a></li>
+      <li><a href="aquathlon.html">Aquathlon 2026</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="index.html" class="nav-back">← Volver</a>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="hero">
+    <img src="img/flyers/aquathlon.png" alt="Aquathlon NAF Montevideo 2026" class="flyer">
+  </div>
+
+  <div class="contenido">
+    <div class="section-tag">Evento especial · Noviembre 2026</div>
+    <h1 class="section-title">Aquathlon <span>NAF MVD</span></h1>
+    <p class="section-desc">Combinamos natación en aguas abiertas y carrera. Participá en modalidad individual o en dupla (competitiva o participativa). Asegurá tu lugar completando el formulario a continuación.
+
+    </p>
+    <a href="img/reglamento-aquathlon.pdf" target="_blank" class="btn-reglamento">
+      Hacé click acá para leer el reglamento completo antes de inscribirte 
+    </a>
+    
+
+    <!-- FORMULARIO  -->
+    <form id="form-aquatlon" class="form-section">
+      
+      <!-- Datos Personales -->
+      <div class="form-block-title">1. Datos Personales</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nombre">Nombre completo *</label>
+          <input type="text" id="nombre" required placeholder="Tu nombre y apellido" />
+        </div>
+        <div class="form-group">
+          <label for="ci">Cédula de identidad (C.I.) *</label>
+          <input type="text" id="ci" required placeholder="1.234.567-8" />
+        </div>
+        <div class="form-group">
+          <label for="telefono">Celular *</label>
+          <input type="tel" id="telefono" required placeholder="09X XXX XXX" />
+        </div>
+        <div class="form-group">
+          <label for="contactoEmergencia">Contacto de emergencia (Nombre y celular) *</label>
+          <input type="text" id="contactoEmergencia" required placeholder="Ej: Maria Pérez - 099 123 456" />
+        </div>
+      </div>
+
+      <!-- Categorías -->
+      <div class="form-block-title">2. Categoría de Participación</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="categoria">Seleccionar opción *</label>
+          <select id="categoria" required onchange="toggleDuplaFields()">
+            <option value="" disabled selected>-- Seleccionar categoría --</option>
+            <option value="Individual Competitivo">Individual competitivo</option>
+            <option value="Individual Participativo">Individual participativo</option>
+            <option value="Dupla Competitiva">Dupla competitiva</option>
+            <option value="Dupla Participativa">Dupla participativa</option>
+          </select>
+        </div>
+
+        <div id="campos-dupla" class="duo-box" style="display: none;">
+          <div class="form-group" style="margin-bottom: 10px;">
+            <label for="nombreCompanero">Nombre completo del compañero/a *</label>
+            <input type="text" id="nombreCompanero" placeholder="Nombre completo" />
+          </div>
+          <div class="form-group">
+            <label for="ciCompanero">C.I. del compañero/a *</label>
+            <input type="text" id="ciCompanero" placeholder="1.234.567-8" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Aviso de Equipamiento -->
+      <div class="nota-equipo">
+        ⚠️ <strong>Equipamiento obligatorio:</strong> La inscripción <u>NO incluye</u> boya de seguridad. La <strong>boya de seguridad es estrictamente obligatoria</strong> para ingresar al agua.
+      </div>
+
+      <!-- Declaracion  -->
+      <div class="form-block-title">3. Declaración de aptitud física</div>
+      <label class="checkbox-group">
+        <input type="checkbox" id="declaracionSalud" required />
+        <span>Declaro estar en aptas condiciones físicas y de salud para participar del Aquathlon.</span>
+      </label>
+      <label class="checkbox-group">
+        <input type="checkbox" id="deslinde" required />
+        <span>Acepto los términos, reglamento del evento y el deslinde de responsabilidad de NAF Montevideo.</span>
+      </label>
+
+      <!-- Pago y Comprobante -->
+      <div class="form-block-title" style="margin-top: 16px;">4. Pago de inscripción</div>
+  <div class="pago-info">
+    Realizá la transferencia a nuestra cuenta antes de enviar:
+    <ul style="margin-top: 6px; padding-left: 20px;">
+      <li><strong>Prex Uruguay:</strong> Cuenta Nº <code>1409976</code></li>
+    </ul>
+    <ul style="margin-top: 8px; padding-left: 20px;">
+      <li>Individual: <strong>$500 UYU</strong></li>
+      <li>Dupla: <strong>$1.000 UYU</strong> ($500 por persona)</li>
+    </ul>
+    <p style="margin-top: 8px; color: var(--grey); font-size: .85rem;">⚠️ Incluí como referencia tu número de C.I. (o ambas C.I. en caso de dupla).</p>
+  </div>
+
+      <div class="form-group" style="margin-bottom: 20px;">
+        <label for="comprobante">Adjuntar comprobante de pago (Captura/Foto/PDF) *</label>
+        <input type="file" id="comprobante" accept="image/*,application/pdf" required />
+      </div>
+
+      <button type="submit" class="btn-inscripcion" id="btn-enviar">Enviar inscripción y comprobante →</button>
+    </form>
+
+    <div id="form-success" style="display:none;" class="form-success">
+      ¡Inscripción y comprobante enviados con éxito! Revisaremos tu pago y te confirmaremos la inscripción a la brevedad.
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-logo">NAF<span> </span>MVD</div>
+    <div class="footer-copy">© 2026 NAF Montevideo</div>
+    <div class="footer-links">
+      <a href="index.html">Inicio</a>
+      <a href="index.html#nosotros">Nosotros</a>
+      <a href="index.html#fotos">Fotos</a>
+      <a href="calendario.html">Calendario</a>
+      <a href="index.html#contacto">Contacto</a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+
+    function toggleDuplaFields() {
+      const cat = document.getElementById('categoria').value;
+      const duplaBox = document.getElementById('campos-dupla');
+      const nomComp = document.getElementById('nombreCompanero');
+      const ciComp = document.getElementById('ciCompanero');
+
+      if (cat.includes('Dupla')) {
+        duplaBox.style.display = 'block';
+        nomComp.required = true;
+        ciComp.required = true;
+      } else {
+        duplaBox.style.display = 'none';
+        nomComp.required = false;
+        ciComp.required = false;
+        nomComp.value = '';
+        ciComp.value = '';
+      }
+    }
+
+    // ENVIO SEGURO DEL FORMULARIO + CONVERSIÓN DE ARCHIVO A BASE64
+    document.getElementById("form-aquatlon").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById("btn-enviar");
+      const fileInput = document.getElementById("comprobante");
+
+      if (fileInput.files.length === 0) {
+        alert("Por favor adjuntá el comprobante de pago.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "Enviando comprobante...";
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(evt) {
+        const base64Data = evt.target.result.split(',')[1];
+        
+        const payload = {
+          actividad: "Aquathlon Noviembre 2026",
+          nombre: document.getElementById("nombre").value,
+          ci: document.getElementById("ci").value,
+          telefono: document.getElementById("telefono").value,
+          contactoEmergencia: document.getElementById("contactoEmergencia").value,
+          categoria: document.getElementById("categoria").value,
+          nombreCompanero: document.getElementById("nombreCompanero").value || 'N/A',
+          ciCompanero: document.getElementById("ciCompanero").value || 'N/A',
+          fileName: file.name,
+          fileType: file.type,
+          fileData: base64Data
+        };
+
+        // REEMPLAZAR CON TU URL DE GOOGLE APPS SCRIPT PARA EL Aquathlon
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_uDQgIxoE8OTCsBzjFjka-J1_A11QvzqGLiR12wRWYKBVp3rls7Ju-6urBpN6U4bNsg/exec";
+
+        fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+          document.getElementById("form-aquatlon").style.display = "none";
+          document.getElementById("form-success").style.display = "block";
+        })
+        .catch(err => {
+          alert("Ocurrió un error al subir el comprobante. Por favor intentá nuevamente.");
+          btn.disabled = false;
+          btn.innerText = "Enviar Inscripción y Comprobante →";
+        });
+      };
+
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>
