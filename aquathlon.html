@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Aquathlon 2026 · NAF Montevideo</title>
-  <meta name="description" content="Inscripción oficial al Aquathlon NAF Montevideo. Corrida y  en aguas abiertas.">
+  <meta name="description" content="Inscripción oficial al Aquathlon NAF Montevideo. Corrida y natación en aguas abiertas.">
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&display=swap" rel="stylesheet" />
   <link rel="icon" href="img/logo.ico">
   <style>
@@ -36,7 +36,7 @@
     .nav-back { font-family: 'Barlow Condensed', sans-serif; font-size: .9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; color: var(--grey); text-decoration: none; transition: color .2s; }
     .nav-back:hover { color: var(--ice); }
     
-    /* HAMBURGER & NAV OVERLAY (IGUAL A CALENDARIO Y RUTAS) */
+    /* HAMBURGER & NAV OVERLAY */
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .hamburger span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; }
     .nav-links { display: none; }
@@ -79,7 +79,6 @@
       letter-spacing: 1.5px;
       text-decoration: none;
       margin-bottom: 2rem;
-      display: block;
       transition: border-color .2s, background .2s;
     }
     .btn-reglamento:hover {
@@ -158,6 +157,7 @@
       border-radius: 8px;
       padding: 16px;
       margin-top: 10px;
+      display: flex; flex-direction: column; gap: 14px;
     }
 
     /* AVISOS Y CHECKBOXES */
@@ -256,14 +256,13 @@
   <div class="contenido">
     <div class="section-tag">Evento especial · Noviembre 2026</div>
     <h1 class="section-title">Aquathlon <span>NAF MVD</span></h1>
-    <p class="section-desc">Combinamos natación en aguas abiertas y carrera. Participá en modalidad individual o en dupla (competitiva o participativa). Asegurá tu lugar completando el formulario a continuación.
-    </p>
+    <p class="section-desc">Combinamos natación en aguas abiertas y carrera. Participá en modalidad individual o en dupla (competitiva o participativa). Asegurá tu lugar completando el formulario a continuación.</p>
     
     <a href="docs/reglamento-aquathlon.pdf" target="_blank" class="btn-reglamento">
       Hacé click acá para leer el reglamento completo antes de inscribirte 
     </a>
     
-    <!-- FORMULARIO  -->
+    <!-- FORMULARIO -->
     <form id="form-aquatlon" class="form-section">
       
       <!-- Datos Personales -->
@@ -285,6 +284,22 @@
           <label for="contactoEmergencia">Contacto de emergencia (Nombre y celular) *</label>
           <input type="text" id="contactoEmergencia" required placeholder="Ej: Maria Pérez - 099 123 456" />
         </div>
+        <div class="form-group">
+          <label for="coberturaMedica">Cobertura médica *</label>
+          <input type="text" id="coberturaMedica" required placeholder="Ej: CASMU / ASSE / CCOU" />
+        </div>
+        <div class="form-group">
+          <label for="emergenciaMovil">Emergencia Móvil </label>
+          <input type="text" id="emergenciaMovil" placeholder="Ej: SUAT / UCM / SEMM" />
+        </div>
+        <div class="form-group">
+          <label for="carneSalud">Adjuntar carné de salud vigente *</label>
+          <input type="file" id="carneSalud" accept="image/*,application/pdf" required />
+        </div>
+        <div class="form-group">
+          <label for="vencimientoCarne">Vencimiento del carné de salud *</label>
+          <input type="date" id="vencimientoCarne" required />
+        </div>
       </div>
 
       <!-- Categorías -->
@@ -302,7 +317,8 @@
         </div>
 
         <div id="campos-dupla" class="duo-box" style="display: none;">
-          <div class="form-group" style="margin-bottom: 10px;">
+          <div class="form-block-title" style="margin-bottom: 10px;">Datos del Compañero/a</div>
+          <div class="form-group">
             <label for="nombreCompanero">Nombre completo del compañero/a *</label>
             <input type="text" id="nombreCompanero" placeholder="Nombre completo" />
           </div>
@@ -310,23 +326,38 @@
             <label for="ciCompanero">C.I. del compañero/a *</label>
             <input type="text" id="ciCompanero" placeholder="1.234.567-8" />
           </div>
+          <div class="form-group">
+            <label for="coberturaMedicaCompanero">Cobertura médica del compañero/a *</label>
+            <input type="text" id="coberturaMedicaCompanero" placeholder="Ej: CASMU / ASSE /  CCOU" />
+          </div>
+          <div class="form-group">
+            <label for="emergenciaMovilCompanero">Emergencia Móvil del compañero/a </label>
+            <input type="text" id="emergenciaMovilCompanero" placeholder="Ej: SUAT / UCM / SEMM" />
+          </div>
+          <div class="form-group">
+            <label for="carneSaludCompanero">Adjuntar carné de salud del compañero/a *</label>
+            <input type="file" id="carneSaludCompanero" accept="image/*,application/pdf" />
+          </div>
+          <div class="form-group">
+            <label for="vencimientoCarneCompanero">Vencimiento carné del compañero/a *</label>
+            <input type="date" id="vencimientoCarneCompanero" />
+          </div>
         </div>
       </div>
 
       <!-- Aviso de Equipamiento -->
       <div class="nota-equipo">
-        ⚠️ <strong>Equipamiento obligatorio:</strong> La inscripción <u>NO incluye</u> boya de seguridad. La <strong>boya de seguridad es estrictamente obligatoria</strong> para ingresar al agua.
+        ⚠️ <strong>Equipamiento obligatorio:</strong> La <strong>boya de seguridad es estrictamente obligatoria</strong> para ingresar al agua.
       </div>
 
-      <!-- Declaracion  -->
-      
+      <!-- Declaracion -->
       <label class="checkbox-group">
         <input type="checkbox" id="declaracionSalud" required />
-        <span>Declaro estar en aptas condiciones físicas y de salud para participar del Aquathlon. </span>
+        <span>Declaro estar en aptas condiciones físicas y de salud para participar del Aquathlon.</span>
       </label>
       <label class="checkbox-group">
         <input type="checkbox" id="declaracionImagen" required />
-        <span>Durante el Aquathlon se realizarán fotografías y filmaciones con fines de registro y difusión del evento. Al participar, los inscriptos aceptan la captación de su imagen en registros generales de la actividad. </span>
+        <span>Durante el Aquathlon se realizarán fotografías y filmaciones con fines de registro y difusión del evento. Al participar, los inscriptos aceptan la captación de su imagen en registros generales de la actividad.</span>
       </label>
       <label class="checkbox-group">
         <input type="checkbox" id="deslinde" required />
@@ -334,7 +365,7 @@
       </label>
 
       <!-- Pago y Comprobante -->
-      <div class="form-block-title" style="margin-top: 16px;">4. Pago de inscripción</div>
+      <div class="form-block-title" style="margin-top: 16px;">3. Pago de inscripción</div>
       <div class="pago-info">
         Realizá la transferencia a nuestra cuenta antes de enviar:
         <ul style="margin-top: 6px; padding-left: 20px;">
@@ -352,11 +383,11 @@
         <input type="file" id="comprobante" accept="image/*,application/pdf" required />
       </div>
 
-      <button type="submit" class="btn-inscripcion" id="btn-enviar">Enviar inscripción y comprobante →</button>
+      <button type="submit" class="btn-inscripcion" id="btn-enviar">Enviar inscripción →</button>
     </form>
 
     <div id="form-success" style="display:none;" class="form-success">
-      ¡Inscripción y comprobante enviados con éxito! Revisaremos tu pago y te confirmaremos la inscripción a la brevedad.
+      ¡Inscripción y archivos enviados con éxito! Revisaremos tus datos y te confirmaremos la inscripción a la brevedad.
     </div>
   </div>
 
@@ -386,75 +417,107 @@
       const duplaBox = document.getElementById('campos-dupla');
       const nomComp = document.getElementById('nombreCompanero');
       const ciComp = document.getElementById('ciCompanero');
+      const cobComp = document.getElementById('coberturaMedicaCompanero');
+      const carneComp = document.getElementById('carneSaludCompanero');
+      const vencComp = document.getElementById('vencimientoCarneCompanero');
 
       if (cat.includes('Dupla')) {
-        duplaBox.style.display = 'block';
+        duplaBox.style.display = 'flex';
         nomComp.required = true;
         ciComp.required = true;
+        cobComp.required = true;
+        carneComp.required = true;
+        vencComp.required = true;
       } else {
         duplaBox.style.display = 'none';
         nomComp.required = false;
         ciComp.required = false;
+        cobComp.required = false;
+        carneComp.required = false;
+        vencComp.required = false;
         nomComp.value = '';
         ciComp.value = '';
+        cobComp.value = '';
+        document.getElementById('emergenciaMovilCompanero').value = '';
+        carneComp.value = '';
+        vencComp.value = '';
       }
     }
 
-    // ENVIO SEGURO DEL FORMULARIO + CONVERSIÓN DE ARCHIVO A BASE64
-    document.getElementById("form-aquatlon").addEventListener("submit", function(e) {
+    // Helper para convertir archivo a Base64
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        if (!file) { resolve(null); return; }
+        const reader = new FileReader();
+        reader.onload = () => resolve({
+          name: file.name,
+          type: file.type,
+          data: reader.result.split(',')[1]
+        });
+        reader.onerror = error => reject(error);
+        reader.readAsDataURL(file);
+      });
+    }
+
+    // ENVIO DEL FORMULARIO
+    document.getElementById("form-aquatlon").addEventListener("submit", async function(e) {
       e.preventDefault();
 
       const btn = document.getElementById("btn-enviar");
-      const fileInput = document.getElementById("comprobante");
+      const fileComprobante = document.getElementById("comprobante").files[0];
+      const fileCarne = document.getElementById("carneSalud").files[0];
+      const fileCarneComp = document.getElementById("carneSaludCompanero").files[0];
 
-      if (fileInput.files.length === 0) {
-        alert("Por favor adjuntá el comprobante de pago.");
+      if (!fileComprobante || !fileCarne) {
+        alert("Por favor adjuntá todos los archivos requeridos.");
         return;
       }
 
       btn.disabled = true;
-      btn.innerText = "Enviando comprobante...";
+      btn.innerText = "Enviando archivos e inscripción...";
 
-      const file = fileInput.files[0];
-      const reader = new FileReader();
+      try {
+        const [comprobanteObj, carneObj, carneCompObj] = await Promise.all([
+          fileToBase64(fileComprobante),
+          fileToBase64(fileCarne),
+          fileToBase64(fileCarneComp)
+        ]);
 
-      reader.onload = function(evt) {
-        const base64Data = evt.target.result.split(',')[1];
-        
         const payload = {
           actividad: "Aquathlon Noviembre 2026",
           nombre: document.getElementById("nombre").value,
           ci: document.getElementById("ci").value,
           telefono: document.getElementById("telefono").value,
           contactoEmergencia: document.getElementById("contactoEmergencia").value,
+          coberturaMedica: document.getElementById("coberturaMedica").value,
+          emergenciaMovil: document.getElementById("emergenciaMovil").value || 'N/A',
+          vencimientoCarne: document.getElementById("vencimientoCarne").value,
           categoria: document.getElementById("categoria").value,
           nombreCompanero: document.getElementById("nombreCompanero").value || 'N/A',
           ciCompanero: document.getElementById("ciCompanero").value || 'N/A',
-          fileName: file.name,
-          fileType: file.type,
-          fileData: base64Data
+          coberturaMedicaCompanero: document.getElementById("coberturaMedicaCompanero").value || 'N/A',
+          emergenciaMovilCompanero: document.getElementById("emergenciaMovilCompanero").value || 'N/A',
+          vencimientoCarneCompanero: document.getElementById("vencimientoCarneCompanero").value || 'N/A',
+          comprobanteFile: comprobanteObj,
+          carneSaludFile: carneObj,
+          carneSaludCompaneroFile: carneCompObj
         };
 
-        // REEMPLAZAR CON TU URL DE GOOGLE APPS SCRIPT PARA EL Aquathlon
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_uDQgIxoE8OTCsBzjFjka-J1_A11QvzqGLiR12wRWYKBVp3rls7Ju-6urBpN6U4bNsg/exec";
 
-        fetch(APPS_SCRIPT_URL, {
+        await fetch(APPS_SCRIPT_URL, {
           method: "POST",
+          mode: "no-cors",
           body: JSON.stringify(payload)
-        })
-        .then(res => res.json())
-        .then(data => {
-          document.getElementById("form-aquatlon").style.display = "none";
-          document.getElementById("form-success").style.display = "block";
-        })
-        .catch(err => {
-          alert("Ocurrió un error al subir el comprobante. Por favor intentá nuevamente.");
-          btn.disabled = false;
-          btn.innerText = "Enviar Inscripción y Comprobante →";
         });
-      };
 
-      reader.readAsDataURL(file);
+        document.getElementById("form-aquatlon").style.display = "none";
+        document.getElementById("form-success").style.display = "block";
+      } catch (err) {
+        alert("Ocurrió un error al enviar la inscripción. Por favor intentá nuevamente.");
+        btn.disabled = false;
+        btn.innerText = "Enviar inscripción →";
+      }
     });
   </script>
 </body>
