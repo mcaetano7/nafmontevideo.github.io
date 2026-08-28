@@ -67,7 +67,7 @@ const calendario = [
       {"fecha":"26/09/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"26/10/26","nombre":"Luna Llena","lugar":"consultar","distancia":"consultar","descripcion":"N/A","inscripcion":""},
       {"fecha":"08/11/26","nombre":"Riachuelo","lugar":"Colonia","distancia":"consultar","descripcion":"N/A","inscripcion":""},
-      {"fecha":"21/11/26",
+      {"fecha":"28/11/26",
         "nombre":"Aquathlon NAF Montevideo",
         "lugar":"Estacionamiento Playa del Cerro",
         "distancia":"2,5k corriendo, 1000m nadando y 2,5k corriendo",
