@@ -126,7 +126,7 @@
   <li><a href="index.html#fotos">Fotos</a></li>
   <li><a href="index.html#contacto">Contacto</a></li>
   <li><a href="rutas.html">Rutas de Nado</a></li>
-  <!-- <li><a href="aquathlon.html">Aquathlon</a></li> -->
+  <li><a href="aquathlon.html">Aquathlon</a></li>
 </ul>
 
 <div style="display:flex; align-items:center; gap:12px;">
@@ -273,16 +273,20 @@
       return DIAS[d.getDay()] + " " + d.getDate() + " de " + MESES[d.getMonth()] + " " + d.getFullYear();
     }
 
-    function renderEvento(ev) {
+  function renderEvento(ev) {
       let inscHtml = "";
+
       if (ev.organizacion === "NAF MVD") {
         const params = `titulo=${encodeURIComponent(ev.nombre)}&fecha=${encodeURIComponent(ev.fecha)}&hora=${encodeURIComponent(ev.hora || "23:59")}`;
         inscHtml = `<a href="lista.html?${params}" class="btn-inscripcion">Anotarse →</a>`;
+      } else if (ev.inscripcion === "aquathlon.html") {
+        inscHtml = `<a href="aquathlon.html" class="btn-inscripcion">Ver actividad →</a>`;
       } else if (ev.inscripcion && ev.inscripcion.startsWith("http")) {
         inscHtml = `<a href="${ev.inscripcion}" target="_blank" class="btn-inscripcion">Inscribirse →</a>`;
       } else if (ev.inscripcion === "rutas.html") {
         inscHtml = `<a href="rutas.html" class="btn-inscripcion">Ver actividad →</a>`;
       }
+
       return `
         <div class="panel-fecha">${formatearFecha(ev.fecha)}</div>
         <div class="panel-titulo">${ev.nombre}</div>
@@ -323,6 +327,7 @@
     document.querySelectorAll('.nav-links a').forEach(a =>
       a.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open'))
     )
+    
   </script>
   <footer>
     <div class="footer-logo">NAF<span> </span>MVD</div>

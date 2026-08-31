@@ -250,7 +250,7 @@
   </nav>
 
   <div class="hero">
-    <img src="img/flyers/aquathlon.png" alt="Aquathlon NAF Montevideo 2026" class="flyer">
+    <img src="img/flyers/Aquathlon.svg" alt="Aquathlon NAF Montevideo 2026" class="flyer">
   </div>
 
   <div class="contenido">
@@ -262,6 +262,17 @@
       Hacé click acá para leer el reglamento completo antes de inscribirte 
     </a>
     
+  <!-- Cartel temporal hasta el domingo -->
+<div id="mensaje-proximamente" class="form-section" style="text-align: center; padding: 40px 20px;">
+  <div class="section-tag" style="margin-bottom: 10px;">Inscripciones</div>
+  <h3 style="font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--ice); margin-bottom: 10px;">
+    Apertura próximamente
+  </h3>
+  <p style="color: var(--grey); font-size: 1rem;">
+    Las inscripciones estarán disponibles a partir del <strong>domingo a las 00:00 hs</strong>.
+  </p>
+</div>
+
     <!-- FORMULARIO -->
     <form id="form-aquatlon" class="form-section">
       
@@ -519,6 +530,29 @@
         btn.innerText = "Enviar inscripción →";
       }
     });
+
+    function verificarAperturaInscripciones() {
+  const ahora = new Date();
+  
+  // FECHA DE APERTURA: Domingo 6 de Septiembre de 2026 a las 00:00 hs
+  // Nota: Los meses en JS arrancan en 0 (Enero = 0, Septiembre = 8)
+  const fechaApertura = new Date(2026, 8, 6, 0, 0, 0); 
+
+  const form = document.getElementById("form-aquatlon");
+  const cartelProximamente = document.getElementById("mensaje-proximamente");
+
+  if (ahora >= fechaApertura) {
+    if (form) form.style.display = "block";
+    if (cartelProximamente) cartelProximamente.style.display = "none";
+  } else {
+    if (form) form.style.display = "none";
+    if (cartelProximamente) cartelProximamente.style.display = "block";
+  }
+}
+
+// Ejecutar la verificación al cargar la página
+document.addEventListener("DOMContentLoaded", verificarAperturaInscripciones);
   </script>
+
 </body>
 </html>
