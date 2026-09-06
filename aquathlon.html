@@ -187,6 +187,48 @@
     }
     .checkbox-group input { width: auto; margin-top: 2px; }
 
+/* ESTILOS CUSTOM PARA CHECKBOXES (Fix Safari/Chrome) */
+    .checkbox-group input[type="checkbox"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      min-width: 20px;
+      min-height: 20px;
+      border: 2px solid var(--grey);
+      border-radius: 4px;
+      background-color: rgba(0, 30, 60, 0.4);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      vertical-align: middle;
+      margin-right: 8px;
+      transition: all 0.2s ease;
+      outline: none;
+      flex-shrink: 0;
+    }
+
+    .checkbox-group input[type="checkbox"]:hover {
+      border-color: var(--ice);
+    }
+
+    .checkbox-group input[type="checkbox"]:checked {
+      background-color: var(--ice);
+      border-color: var(--ice);
+    }
+
+    .checkbox-group input[type="checkbox"]:checked::after {
+      content: '';
+      width: 5px;
+      height: 10px;
+      border: solid var(--dark);
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg);
+      margin-bottom: 2px;
+    }
+
     /* BOTON INSCRIPCION */
     .btn-inscripcion {
       display: block; width: 100%; text-align: center;
@@ -516,14 +558,26 @@
 
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_uDQgIxoE8OTCsBzjFjka-J1_A11QvzqGLiR12wRWYKBVp3rls7Ju-6urBpN6U4bNsg/exec";
 
-        await fetch(APPS_SCRIPT_URL, {
+      const response = await fetch(APPS_SCRIPT_URL, {
           method: "POST",
-          mode: "no-cors",
           body: JSON.stringify(payload)
         });
 
-        document.getElementById("form-aquatlon").style.display = "none";
-        document.getElementById("form-success").style.display = "block";
+        const data = await response.json();
+
+        if (data.resultado === "ok") {
+          document.getElementById("form-aquatlon").style.display = "none";
+          document.getElementById("form-success").style.display = "block";
+        } else if (data.resultado === "cupo_lleno") {
+          alert("Lo sentimos, se ha alcanzado el límite máximo de 90 participantes confirmados.");
+          btn.disabled = false;
+          btn.innerText = "Enviar inscripción →";
+        } else {
+          alert("Ocurrió un error al enviar la inscripción. Intentalo nuevamente.");
+          btn.disabled = false;
+          btn.innerText = "Enviar inscripción →";
+        }
+
       } catch (err) {
         alert("Ocurrió un error al enviar la inscripción. Por favor intentá nuevamente.");
         btn.disabled = false;
