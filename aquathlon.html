@@ -180,6 +180,18 @@
       padding: 2px 6px; border-radius: 4px; font-family: monospace;
     }
 
+    .sponsor-card {
+      background: rgba(0,61,107,0.4);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: .95rem;
+    }
+    .sponsor-card a { color: var(--ice); font-weight: 600; text-decoration: none; }
+    .sponsor-card a:hover { text-decoration: underline; }
+
     .checkbox-group {
       display: flex; align-items: flex-start; gap: 10px;
       font-size: .88rem; color: rgba(240,248,255,0.85);
@@ -455,6 +467,10 @@
       </div>
 
       <button type="submit" class="btn-inscripcion" id="btn-enviar">Enviar inscripción →</button>
+      <div class="sponsor-card">
+        ¿Querés sumarte como sponsor?
+        <a href="mailto:nafmontevideo@gmail.com">Escribinos a nafmontevideo@gmail.com</a>
+      </div>
     </form>
 
     <form id="form-colaboracion" class="form-section" style="display: none;">
@@ -490,8 +506,8 @@
       </div>
 
       <div class="form-group" style="margin-bottom: 20px;">
-        <label for="comprobante">Adjuntar comprobante de pago (Captura/Foto/PDF) *</label>
-        <input type="file" id="comprobante" accept="image/*,application/pdf" required />
+        <label for="comprobanteColaboracion">Adjuntar comprobante de transferencia (Captura/Foto/PDF) *</label>
+        <input type="file" id="comprobanteColaboracion" accept="image/*,application/pdf" required />
       </div>
         <div class="form-group">
           <label for="esEmprendimiento">¿Colaborás como emprendimiento? *</label>
@@ -514,6 +530,10 @@
       </div>
 
       <button type="submit" class="btn-inscripcion" id="btn-enviar-colaboracion">Enviar colaboración →</button>
+      <div class="sponsor-card">
+        ¿Querés sumarte como sponsor?
+        <a href="mailto:nafmontevideo@gmail.com">Escribinos a nafmontevideo@gmail.com</a>
+      </div>
     </form>
 
     <div id="form-success" style="display:none;" class="form-success">
@@ -521,7 +541,11 @@
     </div>
     <div id="colaboracion-success" style="display:none;" class="form-success" aria-live="polite">
       ¡Gracias por tu colaboración! Recibimos tus datos y nos pondremos en contacto contigo.
+      <button type="button" class="btn-secundario" id="btn-volver-inscripcion" style="margin-bottom: 20px;">
+        ← Volver a la inscripción deportiva
+      </button>
     </div>
+    
   </div>
 
   <footer>
@@ -698,12 +722,21 @@
       const btn = document.getElementById("btn-enviar-colaboracion");
       const esEmprendimiento = document.getElementById("esEmprendimiento").value === "Sí";
       const logoFile = document.getElementById("logoEmprendimiento").files[0];
+      const comprobanteFile = document.getElementById("comprobanteColaboracion").files[0];
+
+      if (!comprobanteFile) {
+        alert("Por favor adjuntá el comprobante de la transferencia.");
+        return;
+      }
 
       btn.disabled = true;
       btn.innerText = "Enviando colaboración...";
 
       try {
-        const logoObj = esEmprendimiento ? await fileToBase64(logoFile) : null;
+        const [logoObj, comprobanteObj] = await Promise.all([
+          esEmprendimiento ? fileToBase64(logoFile) : null,
+          fileToBase64(comprobanteFile)
+        ]);
         const payload = {
           tipoInscripcion: "colaboracion",
           actividad: "Aquathlon Noviembre 2026",
@@ -714,7 +747,8 @@
           nombreEmprendimiento: esEmprendimiento
             ? document.getElementById("nombreEmprendimiento").value.trim()
             : "N/A",
-          logoEmprendimientoFile: logoObj
+          logoEmprendimientoFile: logoObj,
+          comprobanteFile: comprobanteObj
         };
 
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_uDQgIxoE8OTCsBzjFjka-J1_A11QvzqGLiR12wRWYKBVp3rls7Ju-6urBpN6U4bNsg/exec";
