@@ -311,12 +311,20 @@
     Apertura próximamente
   </h3>
   <p style="color: var(--grey); font-size: 1rem;">
-    Las inscripciones estarán disponibles a partir del <strong>domingo a las 00:00 h</strong>.
+    Las inscripciones estarán disponibles a partir del <strong>sábado a las 00:00 h</strong>.
+  </p>
+</div>
+<div id="mensaje-cupo-completo" class="form-section" style="display: none; text-align: center; padding: 36px 24px;">
+  
+    ¡Cupos llenos! Nos vemos el 28 de noviembre en la Playa del Cerro. 
+  </h3>
+  <p style="color: var(--grey); font-size: 1rem;">
+    Podés formar parte como <strong>colaborador o sponsor</strong>.
   </p>
 </div>
 
     <!-- FORMULARIO -->
-    <form id="form-aquatlon" class="form-section">
+    <form id="form-aquatlon" class="form-section" style="display: none;">
       
       <!-- Datos Personales -->
       <div class="form-block-title">1. Datos Personales</div>
@@ -588,12 +596,14 @@
     function verificarAperturaInscripciones() {
   const ahora = new Date();
   
+
+  // FECHA DE REAPERTURA: (potencial) Sábado 14 de noviembre de 2026 a las 00:00h
   // FECHA DE APERTURA: Domingo 6 de Septiembre de 2026 a las 00:00 hs
   // Nota: Los meses en JS arrancan en 0 (Enero = 0, Septiembre = 8)
-  const fechaApertura = new Date(2026, 8, 6, 0, 0, 0); 
+  const fechaApertura = new Date(2026, 10, 14, 0, 0, 0); 
 
   const form = document.getElementById("form-aquatlon");
-  const cartelProximamente = document.getElementById("mensaje-proximamente");
+  const cartelProximamente = document.getElementById("mensaje-cupo-completo");
 
   if (ahora >= fechaApertura) {
     if (form) form.style.display = "block";
