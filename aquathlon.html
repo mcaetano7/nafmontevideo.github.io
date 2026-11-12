@@ -180,6 +180,18 @@
       padding: 2px 6px; border-radius: 4px; font-family: monospace;
     }
 
+    .sponsor-card {
+      background: rgba(0,61,107,0.4);
+      border: 1px solid rgba(0,212,255,0.2);
+      border-radius: 8px;
+      padding: 14px 16px;
+      margin-top: 20px;
+      text-align: center;
+      font-size: .95rem;
+    }
+    .sponsor-card a { color: var(--ice); font-weight: 600; text-decoration: none; }
+    .sponsor-card a:hover { text-decoration: underline; }
+
     .checkbox-group {
       display: flex; align-items: flex-start; gap: 10px;
       font-size: .88rem; color: rgba(240,248,255,0.85);
@@ -244,6 +256,16 @@
     }
     .btn-inscripcion:hover { background: #ffb800; transform: translateY(-2px); }
     .btn-inscripcion:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    .btn-secundario {
+      display: block; width: 100%; text-align: center;
+      background: transparent; color: var(--ice);
+      border: 1px solid rgba(0,212,255,0.4); border-radius: 8px;
+      padding: 14px; font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 1.5px; cursor: pointer; transition: background .2s, border-color .2s;
+    }
+    .btn-secundario:hover { background: rgba(0,212,255,0.08); border-color: var(--ice); }
 
     .form-success {
       background: rgba(0,212,255,0.1);
@@ -322,6 +344,14 @@
     Podés formar parte como <strong>colaborador o sponsor</strong>.
   </p>
 </div>
+
+    <section class="form-section" aria-labelledby="opciones-inscripcion">
+      <div class="form-block-title" id="opciones-inscripcion">¿Cómo querés sumarte?</div>
+      <p class="section-desc" style="margin-bottom: 16px;">Podés participar del evento o colaborar económicamente sin competir.</p>
+      <button type="button" class="btn-secundario" id="btn-mostrar-colaboracion">
+        Quiero colaborar sin participar →
+      </button>
+    </section>
 
     <!-- FORMULARIO -->
     <form id="form-aquatlon" class="form-section" style="display: none;">
@@ -445,11 +475,85 @@
       </div>
 
       <button type="submit" class="btn-inscripcion" id="btn-enviar">Enviar inscripción →</button>
+      <div class="sponsor-card">
+        ¿Querés sumarte como sponsor?
+        <a href="mailto:nafmontevideo@gmail.com">Escribinos a nafmontevideo@gmail.com</a>
+      </div>
+    </form>
+
+    <form id="form-colaboracion" class="form-section" style="display: none;">
+      <button type="button" class="btn-secundario" id="btn-volver-inscripcion" style="margin-bottom: 20px;">
+        ← Volver a la inscripción deportiva
+      </button>
+      <div class="form-block-title">Colaboración económica</div>
+      <p class="section-desc" style="margin-bottom: 20px;">Completá tus datos para colaborar con el Aquathlon sin participar en la actividad deportiva.</p>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="nombreColaborador">Nombre completo *</label>
+          <input type="text" id="nombreColaborador" required placeholder="Tu nombre y apellido" />
+        </div>
+        <div class="form-group">
+          <label for="telefonoColaborador">Celular *</label>
+          <input type="tel" id="telefonoColaborador" required placeholder="09X XXX XXX" />
+        </div>
+        <div class="form-group">
+          <label for="montoColaboracion">Monto de la colaboración (UYU) *</label>
+          <input type="number" id="montoColaboracion" required min="1" step="1" placeholder="Ej: 1000" />
+        </div>
+
+           <!-- Pago y Comprobante -->
+      <div class="form-block-title" style="margin-top: 16px;">3. Pago de inscripción</div>
+      <div class="pago-info">
+        Realizá la transferencia a nuestra cuenta antes de enviar:
+        <ul style="margin-top: 6px; padding-left: 20px;">
+          <li><strong>Prex Uruguay:</strong> Cuenta Nº <code>1409976</code> Titular: María Rivas</li>
+        </ul>
+    
+        <p style="margin-top: 8px; color: var(--grey); font-size: .85rem;">⚠️ Incluí como referencia tu nombre o el de tu emprendimiento.</p>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 20px;">
+        <label for="comprobanteColaboracion">Adjuntar comprobante de transferencia (Captura/Foto/PDF) *</label>
+        <input type="file" id="comprobanteColaboracion" accept="image/*,application/pdf" required />
+      </div>
+        <div class="form-group">
+          <label for="esEmprendimiento">¿Colaborás como emprendimiento? *</label>
+          <select id="esEmprendimiento" required onchange="toggleEmprendimientoFields()">
+            <option value="" disabled selected>-- Seleccioná una opción --</option>
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div id="campos-emprendimiento" class="duo-box" style="display: none;">
+          <div class="form-group">
+            <label for="nombreEmprendimiento">Nombre del emprendimiento *</label>
+            <input type="text" id="nombreEmprendimiento" placeholder="Nombre del emprendimiento" />
+          </div>
+          <div class="form-group">
+            <label for="logoEmprendimiento">Logo del emprendimiento * (imagen)</label>
+            <input type="file" id="logoEmprendimiento" accept="image/*" />
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-inscripcion" id="btn-enviar-colaboracion">Enviar colaboración →</button>
+      <div class="sponsor-card">
+        ¿Querés sumarte como sponsor?
+        <a href="mailto:nafmontevideo@gmail.com">Escribinos a nafmontevideo@gmail.com</a>
+      </div>
     </form>
 
     <div id="form-success" style="display:none;" class="form-success">
       ¡Inscripción y archivos enviados con éxito! Revisaremos tus datos y te confirmaremos la inscripción a la brevedad.
     </div>
+    <div id="colaboracion-success" style="display:none;" class="form-success" aria-live="polite">
+      ¡Gracias por tu colaboración! Recibimos tus datos y nos pondremos en contacto contigo.
+      <button type="button" class="btn-secundario" id="btn-volver-inscripcion" style="margin-bottom: 20px;">
+        ← Volver a la inscripción deportiva
+      </button>
+    </div>
+    
   </div>
 
   <footer>
@@ -505,6 +609,32 @@
       }
     }
 
+    function toggleEmprendimientoFields() {
+      const esEmprendimiento = document.getElementById('esEmprendimiento').value === 'Sí';
+      const campos = document.getElementById('campos-emprendimiento');
+      const nombre = document.getElementById('nombreEmprendimiento');
+      const logo = document.getElementById('logoEmprendimiento');
+
+      campos.style.display = esEmprendimiento ? 'flex' : 'none';
+      nombre.required = esEmprendimiento;
+      logo.required = esEmprendimiento;
+      if (!esEmprendimiento) {
+        nombre.value = '';
+        logo.value = '';
+      }
+    }
+
+    const formInscripcion = document.getElementById('form-aquatlon');
+    const formColaboracion = document.getElementById('form-colaboracion');
+    document.getElementById('btn-mostrar-colaboracion').addEventListener('click', () => {
+      formInscripcion.style.display = 'none';
+      formColaboracion.style.display = 'block';
+    });
+    document.getElementById('btn-volver-inscripcion').addEventListener('click', () => {
+      formColaboracion.style.display = 'none';
+      verificarAperturaInscripciones();
+    });
+
     // Helper para convertir archivo a Base64
     function fileToBase64(file) {
       return new Promise((resolve, reject) => {
@@ -545,6 +675,7 @@
         ]);
 
         const payload = {
+          tipoInscripcion: "deportiva",
           actividad: "Aquathlon Noviembre 2026",
           nombre: document.getElementById("nombre").value,
           ci: document.getElementById("ci").value,
@@ -590,6 +721,63 @@
         alert("Ocurrió un error al enviar la inscripción. Por favor intentá nuevamente.");
         btn.disabled = false;
         btn.innerText = "Enviar inscripción →";
+      }
+    });
+
+    document.getElementById("form-colaboracion").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const btn = document.getElementById("btn-enviar-colaboracion");
+      const esEmprendimiento = document.getElementById("esEmprendimiento").value === "Sí";
+      const logoFile = document.getElementById("logoEmprendimiento").files[0];
+      const comprobanteFile = document.getElementById("comprobanteColaboracion").files[0];
+
+      if (!comprobanteFile) {
+        alert("Por favor adjuntá el comprobante de la transferencia.");
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerText = "Enviando colaboración...";
+
+      try {
+        const [logoObj, comprobanteObj] = await Promise.all([
+          esEmprendimiento ? fileToBase64(logoFile) : null,
+          fileToBase64(comprobanteFile)
+        ]);
+        const payload = {
+          tipoInscripcion: "colaboracion",
+          actividad: "Aquathlon Noviembre 2026",
+          nombre: document.getElementById("nombreColaborador").value.trim(),
+          telefono: document.getElementById("telefonoColaborador").value.trim(),
+          monto: document.getElementById("montoColaboracion").value,
+          esEmprendimiento,
+          nombreEmprendimiento: esEmprendimiento
+            ? document.getElementById("nombreEmprendimiento").value.trim()
+            : "N/A",
+          logoEmprendimientoFile: logoObj,
+          comprobanteFile: comprobanteObj
+        };
+
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz_uDQgIxoE8OTCsBzjFjka-J1_A11QvzqGLiR12wRWYKBVp3rls7Ju-6urBpN6U4bNsg/exec";
+        const response = await fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const data = await response.json();
+
+        if (data.resultado === "ok") {
+          formColaboracion.style.display = "none";
+          document.getElementById("colaboracion-success").style.display = "block";
+        } else {
+          alert("Ocurrió un error al registrar la colaboración. Intentalo nuevamente.");
+          btn.disabled = false;
+          btn.innerText = "Enviar colaboración →";
+        }
+      } catch (err) {
+        alert("Ocurrió un error al enviar la colaboración. Por favor intentá nuevamente.");
+        btn.disabled = false;
+        btn.innerText = "Enviar colaboración →";
       }
     });
 
